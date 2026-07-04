@@ -20,7 +20,7 @@
 }
 
 .portfolio-item {
-  border-radius: 4px;
+  border-radius: 12px;
   overflow: hidden;
   background-color: var(--bg-card);
   aspect-ratio: 4 / 3;
@@ -41,7 +41,7 @@
 }
 
 .portfolio-promo-card {
-  border-radius: 4px;
+  border-radius: 16px;
   padding: 36px 40px;
   display: flex;
   flex-direction: column;
@@ -50,11 +50,11 @@
 }
 
 .portfolio-promo-awards {
-  border: 1px solid var(--bg-card);
+  background-color: var(--bg-card);
 }
 
 .portfolio-promo-cta {
-  background-color: var(--bg-card);
+  background-color: var(--bg-cream);
 }
 
 .promo-label {
@@ -84,7 +84,7 @@
   font-size: 16px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--text-primary);
+  color: var(--bg-dark);
   line-height: 1.3;
   margin-bottom: 24px;
 }
@@ -96,16 +96,17 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-primary);
-  border: 1px solid var(--text-faint);
-  padding: 10px 20px;
+  background: var(--bg-dark);
+  border: none;
+  border-radius: 100px;
+  padding: 11px 22px;
   cursor: pointer;
-  background: transparent;
   align-self: flex-start;
-  transition: border-color 0.15s ease;
+  transition: opacity 0.15s ease;
 }
 
 .btn-promo:hover {
-  border-color: var(--text-primary);
+  opacity: 0.85;
 }
 
 /* ── Mobile ── */
@@ -132,5 +133,275 @@
   .portfolio-promo-card {
     padding: 24px;
     min-height: 120px;
+  }
+}
+
+/* ── Desktop portfolio (>=1024px) ── */
+.dport {
+  display: none;
+}
+
+.dport-anim {
+  animation: dskFadeUp 0.85s cubic-bezier(.22, .68, 0, 1) both;
+}
+
+.dport-header {
+  padding: 140px 52px 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.dport-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(237, 232, 216, 0.3);
+  margin-bottom: 16px;
+}
+
+.dport-heading {
+  font-family: var(--dsk-font-display);
+  font-size: clamp(72px, 9vw, 120px);
+  letter-spacing: 4px;
+  line-height: 0.93;
+  color: var(--dsk-text-primary);
+}
+
+.dport-desc {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--dsk-text-muted);
+  max-width: 340px;
+  line-height: 1.65;
+  padding-bottom: 14px;
+}
+
+/* Clip grid */
+.dport-grid {
+  padding: 56px 52px 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.dport-card {
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  background: #1e1b16;
+  aspect-ratio: 9 / 16;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.dport-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 52px rgba(0, 0, 0, 0.5);
+}
+
+.dport-thumb {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #26221c 0%, #14120e 100%);
+}
+
+.dport-play {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.dport-play-ring {
+  width: 56px;
+  height: 56px;
+  background: rgba(237, 232, 216, 0.15);
+  border: 1.5px solid rgba(237, 232, 216, 0.3);
+  border-radius: 50%;
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dport-play-tri {
+  width: 0;
+  height: 0;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-left: 18px solid rgba(237, 232, 216, 0.9);
+  margin-left: 4px;
+}
+
+.dport-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(20, 18, 16, 0.85) 0%, transparent 45%);
+  pointer-events: none;
+}
+
+.dport-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24px 22px;
+}
+
+.dport-platform {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(237, 232, 216, 0.5);
+  margin-bottom: 7px;
+}
+
+.dport-title {
+  font-family: var(--dsk-font-display);
+  font-size: 22px;
+  letter-spacing: 1.5px;
+  color: var(--dsk-text-primary);
+  line-height: 1.05;
+}
+
+/* Bottom row */
+.dport-bottom {
+  padding: 16px 52px 120px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.dport-progress {
+  border-radius: 16px;
+  background: #1e1b16;
+  padding: 52px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 180px;
+}
+
+.dport-progress-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(237, 232, 216, 0.25);
+  margin-bottom: 16px;
+}
+
+.dport-progress-text {
+  font-family: var(--dsk-font-display);
+  font-size: 36px;
+  letter-spacing: 2px;
+  color: rgba(237, 232, 216, 0.4);
+  line-height: 1;
+}
+
+.dport-cta {
+  border-radius: 16px;
+  background: var(--dsk-cream);
+  padding: 44px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 180px;
+}
+
+.dport-cta-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(20, 18, 16, 0.35);
+}
+
+.dport-cta-text {
+  font-family: var(--dsk-font-display);
+  font-size: 32px;
+  letter-spacing: 2px;
+  color: var(--dsk-text-dark);
+  line-height: 1.05;
+  margin-bottom: 18px;
+}
+
+.dport-cta-btn {
+  display: inline-block;
+  background: var(--dsk-dark);
+  color: var(--dsk-text-primary);
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 11px 24px;
+  border-radius: 100px;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.dport-cta-btn:hover {
+  background: #2a2520;
+}
+
+/* Footer */
+.dport-footer {
+  background: var(--dsk-cream);
+  padding: 80px 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dport-footer-heading {
+  font-family: var(--dsk-font-display);
+  font-size: clamp(40px, 4.5vw, 64px);
+  letter-spacing: 3px;
+  color: var(--dsk-text-dark);
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.dport-footer-sub {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--dsk-text-soft);
+}
+
+.dport-footer-btn {
+  flex-shrink: 0;
+  background: var(--dsk-dark);
+  color: var(--dsk-text-primary);
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 16px 36px;
+  border-radius: 100px;
+  letter-spacing: 0.4px;
+  margin-left: 60px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.dport-footer-btn:hover {
+  background: #2a2520;
+}
+
+@media (min-width: 1024px) {
+  .portfolio {
+    display: none;
+  }
+
+  .dport {
+    display: block;
   }
 }

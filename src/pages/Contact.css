@@ -34,7 +34,7 @@
 
 .contact-info-card {
   background-color: var(--bg-dark);
-  border-radius: 3px;
+  border-radius: 12px;
   padding: 24px 28px;
   display: flex;
   flex-direction: column;
@@ -71,7 +71,7 @@
 .contact-form {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 10px;
 }
 
 .form-field {
@@ -86,13 +86,17 @@
   font-weight: 400;
   color: #1a1815;
   background: transparent;
-  border: none;
-  border-bottom: 1px solid var(--border-form);
-  padding: 14px 0;
+  border: 1.5px solid rgba(26, 24, 21, 0.2);
+  border-radius: 8px;
+  padding: 14px 16px;
   outline: none;
   resize: none;
   transition: border-color 0.15s ease;
   width: 100%;
+}
+
+.form-field textarea {
+  line-height: 1.5;
 }
 
 .form-field input::placeholder,
@@ -102,7 +106,7 @@
 
 .form-field input:focus,
 .form-field textarea:focus {
-  border-bottom-color: #1a1815;
+  border-color: #1a1815;
 }
 
 .contact-submit {
@@ -116,6 +120,7 @@
   color: var(--bg-cream);
   background-color: var(--bg-dark);
   border: none;
+  border-radius: 8px;
   padding: 14px 32px;
   cursor: pointer;
   transition: opacity 0.15s ease;

@@ -57,3 +57,24 @@ button {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-924px); }
 }
+
+/* ── Fade-up entrance (mirrors desktop hero animation) ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-up {
+  animation: fadeUp 0.85s cubic-bezier(.22, .68, 0, 1) both;
+}
+
+/* ── Desktop entrance / carousel animations ── */
+@keyframes dskFadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes dskScrollCarousel {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}

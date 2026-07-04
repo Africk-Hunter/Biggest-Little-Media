@@ -21,11 +21,11 @@ export default function Contact() {
 
   return (
     <div className="contact">
-      <section className="contact-header">
+      <section className="contact-header fade-up" style={{ animationDelay: '0s' }}>
         <h1 className="contact-heading">GET IN TOUCH</h1>
       </section>
 
-      <section className="contact-body">
+      <section className="contact-body fade-up" style={{ animationDelay: '0.1s' }}>
         {/* Info cards */}
         <div className="contact-info-row">
           <div className="contact-info-card">

@@ -19,28 +19,13 @@
 /* Logo */
 .nav-logo {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0;
-  line-height: 1;
+  align-items: center;
   cursor: pointer;
 }
 
-.nav-logo-oswald {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 13px;
-  letter-spacing: 0.1em;
-  color: var(--text-primary);
-  line-height: 1.1;
-}
-
-.nav-logo-script {
-  font-family: var(--font-script);
-  font-weight: 700;
-  font-size: 16px;
-  color: var(--text-primary);
-  line-height: 1;
+.nav-logo-img {
+  height: 36px;
+  width: auto;
 }
 
 /* Desktop nav links */
@@ -70,16 +55,18 @@
   font-size: 12px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--text-primary);
-  border: 1px solid var(--text-faint);
-  padding: 8px 18px;
+  color: var(--bg-dark);
+  background-color: var(--text-primary);
+  border: none;
+  border-radius: 100px;
+  padding: 9px 20px;
   cursor: pointer;
-  transition: border-color 0.15s ease, color 0.15s ease;
+  transition: opacity 0.15s ease;
 }
 
 .nav-contact-btn:hover,
 .nav-contact-btn.active {
-  border-color: var(--text-primary);
+  opacity: 0.85;
 }
 
 /* Hamburger — hidden on desktop */
@@ -97,8 +84,8 @@
     height: 52px;
   }
 
-  .nav-logo-oswald {
-    font-size: 11.5px;
+  .nav-logo-img {
+    height: 30px;
   }
 
   .nav-links-desktop {
@@ -157,6 +144,7 @@
     text-transform: uppercase;
     color: var(--bg-dark);
     background-color: var(--text-primary);
+    border-radius: 100px;
     padding: 14px 24px;
     cursor: pointer;
     text-align: center;
@@ -166,4 +154,100 @@
 @keyframes menuIn {
   from { opacity: 0; }
   to   { opacity: 1; }
+}
+
+/* ── Desktop nav (>=1024px) ── */
+.dnav {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 52px;
+  background: linear-gradient(180deg, var(--dsk-nav-grad-top) 0%, rgba(20, 18, 16, 0.9) 60%, transparent 100%);
+}
+
+.dnav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.dnav-badge {
+  width: 38px;
+  height: 38px;
+  border: 1.5px solid rgba(237, 232, 216, 0.6);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--dsk-font-display);
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  color: var(--dsk-text-primary);
+  flex-shrink: 0;
+}
+
+.dnav-wordmark {
+  font-family: var(--dsk-font-display);
+  font-size: 21px;
+  letter-spacing: 2.5px;
+  color: var(--dsk-text-primary);
+  line-height: 1;
+}
+
+.dnav-links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.dnav-link {
+  background: none;
+  border: none;
+  color: var(--dsk-text-primary);
+  font-size: 14px;
+  font-weight: 400;
+  opacity: 0.55;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.dnav-link:hover,
+.dnav-link.is-active {
+  opacity: 1;
+}
+
+.dnav-contact {
+  background: var(--dsk-cream-pill);
+  color: var(--dsk-text-dark);
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: 100px;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.dnav-contact:hover {
+  background: #f7f3ea;
+}
+
+@media (min-width: 1024px) {
+  .nav {
+    display: none;
+  }
+
+  .dnav {
+    display: flex;
+  }
 }
