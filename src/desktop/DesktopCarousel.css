@@ -1,0 +1,119 @@
+.dcar-wrap {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 7%, black 93%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 7%, black 93%, transparent 100%);
+  height: 410px;
+}
+
+.dcar-track {
+  display: flex;
+  height: 100%;
+  animation-name: dskScrollCarousel;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  white-space: nowrap;
+}
+
+.dcar-card {
+  flex: none;
+  width: 220px;
+  height: 390px;
+  margin-right: 20px;
+  background: var(--dsk-cream-card);
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.35);
+  vertical-align: top;
+}
+
+.dcar-texture {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 18px,
+    rgba(0, 0, 0, 0.028) 18px,
+    rgba(0, 0, 0, 0.028) 36px
+  );
+}
+
+.dcar-play {
+  position: relative;
+  z-index: 1;
+  width: 50px;
+  height: 50px;
+  border: 1.5px solid rgba(20, 18, 16, 0.18);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dcar-play-tri {
+  width: 0;
+  height: 0;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-left: 16px solid rgba(20, 18, 16, 0.18);
+  margin-left: 4px;
+}
+
+.dcar-label {
+  position: relative;
+  z-index: 1;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: rgba(20, 18, 16, 0.22);
+}
+
+.dcar-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 12px 14px;
+  background: linear-gradient(transparent, rgba(20, 18, 16, 0.07));
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dcar-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(20, 18, 16, 0.1);
+  flex-shrink: 0;
+}
+
+.dcar-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+}
+
+.dcar-line {
+  height: 7px;
+  background: rgba(20, 18, 16, 0.1);
+  border-radius: 4px;
+}
+
+.dcar-line-1 {
+  width: 60%;
+}
+
+.dcar-line-2 {
+  height: 6px;
+  width: 40%;
+  background: rgba(20, 18, 16, 0.07);
+}

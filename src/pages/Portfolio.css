@@ -1,0 +1,136 @@
+.portfolio-header {
+  padding: 100px 60px 56px;
+}
+
+.portfolio-heading {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 100px;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  line-height: 0.95;
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  padding: 0 60px;
+}
+
+.portfolio-item {
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: var(--bg-card);
+  aspect-ratio: 4 / 3;
+}
+
+.portfolio-item svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Promo row */
+.portfolio-promo-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  padding: 12px 60px 100px;
+}
+
+.portfolio-promo-card {
+  border-radius: 4px;
+  padding: 36px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 180px;
+}
+
+.portfolio-promo-awards {
+  border: 1px solid var(--bg-card);
+}
+
+.portfolio-promo-cta {
+  background-color: var(--bg-card);
+}
+
+.promo-label {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  display: block;
+  margin-bottom: 12px;
+}
+
+.promo-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  line-height: 1.3;
+}
+
+.promo-cta-headline {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  line-height: 1.3;
+  margin-bottom: 24px;
+}
+
+.btn-promo {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  border: 1px solid var(--text-faint);
+  padding: 10px 20px;
+  cursor: pointer;
+  background: transparent;
+  align-self: flex-start;
+  transition: border-color 0.15s ease;
+}
+
+.btn-promo:hover {
+  border-color: var(--text-primary);
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .portfolio-header {
+    padding: 40px 24px 32px;
+  }
+
+  .portfolio-heading {
+    font-size: 52px;
+  }
+
+  .portfolio-grid {
+    padding: 0 24px;
+    gap: 8px;
+  }
+
+  .portfolio-promo-row {
+    grid-template-columns: 1fr;
+    padding: 8px 24px 48px;
+    gap: 8px;
+  }
+
+  .portfolio-promo-card {
+    padding: 24px;
+    min-height: 120px;
+  }
+}

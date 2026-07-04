@@ -1,0 +1,161 @@
+/* ── Hero ── */
+.home-hero {
+  padding: 100px 60px 80px;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+}
+
+.home-hero-headline {
+  display: flex;
+  flex-direction: column;
+  line-height: 0.9;
+  margin-bottom: 36px;
+}
+
+.hero-biggest,
+.hero-media {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 120px;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+.hero-little {
+  font-family: var(--font-script);
+  font-weight: 700;
+  font-size: 140px;
+  color: var(--text-primary);
+  line-height: 0.88;
+}
+
+.home-hero-tagline {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 16px;
+  color: var(--text-dim);
+  line-height: 1.65;
+  max-width: 380px;
+  margin-bottom: 44px;
+}
+
+.home-hero-ctas {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+/* ── Carousel ── */
+.home-carousel-section {
+  padding: 48px 0;
+  overflow: hidden;
+  border-top: 1px solid var(--bg-card);
+}
+
+.home-carousel-label {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  padding: 0 60px;
+  margin-bottom: 24px;
+}
+
+/* ── Services teaser ── */
+.home-services-teaser {
+  padding: 100px 60px;
+  border-top: 1px solid var(--bg-card);
+}
+
+.home-services-inner {
+  max-width: 560px;
+}
+
+.home-services-copy {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 16px;
+  color: var(--text-dim);
+  line-height: 1.75;
+  margin: 28px 0 44px;
+}
+
+/* ── Shared buttons (used across pages) ── */
+.btn-outline {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  border: 1px solid var(--text-primary);
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+  background: transparent;
+}
+
+.btn-outline:hover {
+  background: var(--text-primary);
+  color: var(--bg-dark);
+}
+
+.btn-text-link {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--text-dim);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  background: transparent;
+  transition: color 0.15s ease;
+}
+
+.btn-text-link:hover {
+  color: var(--text-primary);
+}
+
+.section-heading {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 80px;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  line-height: 0.95;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .home-hero {
+    padding: 48px 24px 40px;
+    min-height: auto;
+  }
+
+  .hero-biggest,
+  .hero-media {
+    font-size: 56px;
+  }
+
+  .hero-little {
+    font-size: 70px;
+  }
+
+  .home-carousel-label {
+    padding: 0 24px;
+  }
+
+  .home-services-teaser {
+    padding: 48px 24px;
+  }
+
+  .section-heading {
+    font-size: 52px;
+  }
+}
