@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { Page } from '../App'
 import Carousel from '../components/Carousel'
+import PreFooter from '../components/PreFooter'
 import './Home.css'
 
 interface Props {
@@ -53,19 +54,8 @@ export default function Home({ go, goContactDesktop }: Props) {
           <Carousel variant="mobile" />
         </section>
 
-        {/* Services teaser */}
-        <section className="home-services-teaser">
-          <div className="home-services-inner fade-up" style={{ animationDelay: '0.1s' }}>
-            <h2 className="section-heading">What I Do</h2>
-            <p className="home-services-copy">
-              From strategy to execution — I help small businesses in Reno and beyond
-              build intentional, growth-focused social media presences.
-            </p>
-            <button className="btn-outline" onClick={() => go('services')}>
-              View Services
-            </button>
-          </div>
-        </section>
+        {/* Pre-footer */}
+        <PreFooter variant="mobile" onCta={() => go('contact')} />
       </div>
 
       {/* ── Desktop home (>=1024px) ── */}

@@ -15,7 +15,7 @@ const SLIDE_DURATION = 420
 function renderPage(p: Page, go: (p: Page) => void, goContactDesktop: () => void) {
   switch (p) {
     case 'home': return <Home go={go} goContactDesktop={goContactDesktop} />
-    case 'services': return <Services go={go} />
+    case 'services': return <Services go={go} goContactDesktop={goContactDesktop} />
     case 'portfolio': return <Portfolio go={go} goContactDesktop={goContactDesktop} />
     case 'about': return <About go={go} goContactDesktop={goContactDesktop} />
     case 'contact': return <Contact />

@@ -353,49 +353,6 @@
   background: #2a2520;
 }
 
-/* Footer */
-.dport-footer {
-  background: var(--dsk-cream);
-  padding: 80px 52px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.dport-footer-heading {
-  font-family: var(--dsk-font-display);
-  font-size: clamp(40px, 4.5vw, 64px);
-  letter-spacing: 3px;
-  color: var(--dsk-text-dark);
-  line-height: 1;
-  margin-bottom: 10px;
-}
-
-.dport-footer-sub {
-  font-size: 16px;
-  font-weight: 300;
-  color: var(--dsk-text-soft);
-}
-
-.dport-footer-btn {
-  flex-shrink: 0;
-  background: var(--dsk-dark);
-  color: var(--dsk-text-primary);
-  border: none;
-  font-size: 15px;
-  font-weight: 600;
-  padding: 16px 36px;
-  border-radius: 100px;
-  letter-spacing: 0.4px;
-  margin-left: 60px;
-  cursor: pointer;
-  transition: background 0.15s ease;
-}
-
-.dport-footer-btn:hover {
-  background: #2a2520;
-}
-
 @media (min-width: 1024px) {
   .portfolio {
     display: none;

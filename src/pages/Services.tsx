@@ -1,8 +1,10 @@
 import type { Page } from '../App'
+import PreFooter from '../components/PreFooter'
 import './Services.css'
 
 interface Props {
   go: (p: Page) => void
+  goContactDesktop: () => void
 }
 
 const SERVICES = [
@@ -99,7 +101,7 @@ const DESKTOP_SERVICES = [
   },
 ]
 
-export default function Services({ go }: Props) {
+export default function Services({ go, goContactDesktop }: Props) {
   return (
     <>
       {/* ── Mobile / tablet services (<1024px) ── */}
@@ -123,14 +125,7 @@ export default function Services({ go }: Props) {
           ))}
         </section>
 
-        <section className="services-cta fade-up" style={{ animationDelay: '0.2s' }}>
-          <p className="services-cta-text">
-            Ready to grow your brand?
-          </p>
-          <button className="btn-outline-dark" onClick={() => go('contact')}>
-            Get in Touch
-          </button>
-        </section>
+        <PreFooter variant="mobile" onCta={() => go('contact')} />
       </div>
 
       {/* ── Desktop services (>=1024px) ── */}
@@ -163,6 +158,8 @@ export default function Services({ go }: Props) {
             </div>
           ))}
         </section>
+
+        <PreFooter variant="desktop" onCta={goContactDesktop} />
       </div>
     </>
   )

@@ -1,4 +1,5 @@
 import type { Page } from '../App'
+import PreFooter from '../components/PreFooter'
 import './Portfolio.css'
 
 interface Props {
@@ -53,6 +54,9 @@ export default function Portfolio({ go, goContactDesktop }: Props) {
             </button>
           </div>
         </section>
+
+        {/* Pre-footer */}
+        <PreFooter variant="mobile" onCta={() => go('contact')} />
       </div>
 
       {/* ── Desktop portfolio (>=1024px) ── */}
@@ -103,15 +107,7 @@ export default function Portfolio({ go, goContactDesktop }: Props) {
           </div>
         </section>
 
-        <section className="dport-footer dport-anim" style={{ animationDelay: '0.2s' }}>
-          <div>
-            <h2 className="dport-footer-heading">Let's make something great.</h2>
-            <p className="dport-footer-sub">Your brand's story starts here.</p>
-          </div>
-          <button className="dport-footer-btn" onClick={goContactDesktop}>
-            Book a Call →
-          </button>
-        </section>
+        <PreFooter variant="desktop" onCta={goContactDesktop} />
       </div>
     </>
   )

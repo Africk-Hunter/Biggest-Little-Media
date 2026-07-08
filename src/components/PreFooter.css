@@ -1,0 +1,92 @@
+/* ── Mobile / tablet pre-footer (<1024px) ── */
+.prefooter {
+  padding: 48px 24px;
+  background-color: var(--bg-cream);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+.prefooter-heading {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 36px;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--bg-dark);
+  line-height: 1.05;
+}
+
+.prefooter-sub {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 15px;
+  color: var(--text-faint);
+}
+
+.prefooter-btn {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  background: var(--bg-dark);
+  border: none;
+  border-radius: 100px;
+  padding: 14px 30px;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.prefooter-btn:hover {
+  opacity: 0.85;
+}
+
+/* ── Desktop pre-footer (>=1024px) ── */
+.dprefooter {
+  background: var(--dsk-cream);
+  padding: 80px 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dprefooter-anim {
+  animation: dskFadeUp 0.85s cubic-bezier(.22, .68, 0, 1) both;
+}
+
+.dprefooter-heading {
+  font-family: var(--dsk-font-display);
+  font-size: clamp(40px, 4.5vw, 64px);
+  letter-spacing: 3px;
+  color: var(--dsk-text-dark);
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.dprefooter-sub {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--dsk-text-soft);
+}
+
+.dprefooter-btn {
+  flex-shrink: 0;
+  background: var(--dsk-dark);
+  color: var(--dsk-text-primary);
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 16px 36px;
+  border-radius: 100px;
+  letter-spacing: 0.4px;
+  margin-left: 60px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.dprefooter-btn:hover {
+  background: #2a2520;
+}

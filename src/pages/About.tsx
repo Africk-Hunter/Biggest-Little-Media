@@ -1,4 +1,5 @@
 import type { Page } from '../App'
+import PreFooter from '../components/PreFooter'
 import './About.css'
 
 interface Props {
@@ -87,6 +88,9 @@ export default function About({ go, goContactDesktop }: Props) {
             </button>
           </div>
         </section>
+
+        {/* Pre-footer */}
+        <PreFooter variant="mobile" onCta={() => go('contact')} />
       </div>
 
       {/* ── Desktop about (>=1024px) ── */}
@@ -151,15 +155,7 @@ export default function About({ go, goContactDesktop }: Props) {
           </div>
         </section>
 
-        <section className="dabt-footer dabt-anim" style={{ animationDelay: '0.1s' }}>
-          <div>
-            <h2 className="dabt-footer-heading">Ready to grow your brand?</h2>
-            <p className="dabt-footer-sub">Let's build something together.</p>
-          </div>
-          <button className="dabt-footer-btn" onClick={goContactDesktop}>
-            Book a Call →
-          </button>
-        </section>
+        <PreFooter variant="desktop" onCta={goContactDesktop} />
       </div>
     </>
   )
