@@ -66,16 +66,16 @@ export default function About({ go, goContactDesktop }: Props) {
 
           <div className="about-bio">
             <p>
-              Hi, I'm Bianka — a Reno-based social media strategist and brand consultant
-              with a passion for helping small businesses find their voice online. I believe
-              every brand has a story worth telling, and I'm here to help you tell it with
-              intention and consistency.
+              Being the Biggest Little City means thinking big while staying true to our local roots
+              As a small business, we focus on helping local businesses create an impact both
+              digitally and physically! Our mission is to bridge the gap between local influence
+              and digital trends. Being in a small city shouldn't limit any business to expand
+              their unique products and services to customers.
             </p>
             <p>
-              Whether you're starting from scratch or looking to level up your existing
-              presence, I offer personalized strategies that meet you where you are and
-              grow with you. Based in the Biggest Little City, I work with clients locally
-              and across the country.
+              With a background in content strategy and a passion for storytelling, I bring a
+              personalized, hands-on approach to every client I work with. No cookie-cutter
+              templates, just real strategy built around <em>your</em> brand.
             </p>
           </div>
 
@@ -107,14 +107,16 @@ export default function About({ go, goContactDesktop }: Props) {
             <p className="dabt-role">Social Media Strategist &amp; Brand Consultant</p>
             <div className="dabt-divider" />
             <p className="dabt-p">
-              Based in Reno, NV, I help small businesses and personal brands show up online
-              with confidence. I started Biggest Little Media because I believe every brand —
-              no matter its size — deserves a powerful, authentic presence.
+              Being the Biggest Little City means thinking big while staying true to our local roots
+              As a small business, we focus on helping local businesses create an impact both
+              digitally and physically! Our mission is to bridge the gap between local influence
+              and digital trends. Being in a small city shouldn't limit any business to expand
+              their unique products and services to customers.
             </p>
             <p className="dabt-p">
               With a background in content strategy and a passion for storytelling, I bring a
               personalized, hands-on approach to every client I work with. No cookie-cutter
-              templates — just real strategy built around <em>your</em> brand.
+              templates, just real strategy built around <em>your</em> brand.
             </p>
             <div className="dabt-ctas">
               <button className="dabt-btn-primary" onClick={goContactDesktop}>

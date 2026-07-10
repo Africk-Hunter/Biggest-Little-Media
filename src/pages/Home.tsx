@@ -93,7 +93,7 @@ export default function Home({ go, goContactDesktop }: Props) {
             <p className="dhome-contact-sub">Reach out and let's build something together.</p>
 
             <div className="dhome-contact-cards">
-              <a href="mailto:example@gmail.com" className="dhome-contact-card">
+              <a href="mailto:biggestlittlemedia@gmail.com" className="dhome-contact-card">
                 <div className="dhome-contact-icon">
                   <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#ede8d8" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="2" y="5" width="20" height="15" rx="2"></rect>
@@ -102,7 +102,7 @@ export default function Home({ go, goContactDesktop }: Props) {
                 </div>
                 <div className="dhome-contact-text">
                   <p className="dhome-contact-label">Email</p>
-                  <p className="dhome-contact-value">example@gmail.com</p>
+                  <p className="dhome-contact-value">BiggestLittleMedia@gmail.com</p>
                 </div>
               </a>
               <a href="#" className="dhome-contact-card">
@@ -114,7 +114,7 @@ export default function Home({ go, goContactDesktop }: Props) {
                 </div>
                 <div className="dhome-contact-text">
                   <p className="dhome-contact-label">Social Media</p>
-                  <p className="dhome-contact-value">@ExampleHandle</p>
+                  <p className="dhome-contact-value">@BiggestLittleMedia</p>
                 </div>
               </a>
             </div>

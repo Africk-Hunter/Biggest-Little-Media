@@ -94,7 +94,7 @@ export default function Nav({ page, go, goContactDesktop, menuOpen, toggleMenu }
       {/* ── Desktop nav (>=1024px) ── */}
       <nav className="dnav">
         <button className="dnav-brand" onClick={() => go('home')}>
-          <span className="dnav-badge">BLM</span>
+          <img src="/Logo.svg" alt="Biggest Little Media" className="dnav-logo-img" />
           <span className="dnav-wordmark">Biggest Little Media</span>
         </button>
 

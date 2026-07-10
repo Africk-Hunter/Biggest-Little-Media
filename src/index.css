@@ -55,7 +55,7 @@ button {
 /* ── TikTok Carousel Animation ── */
 @keyframes ticker {
   0%   { transform: translateX(0); }
-  100% { transform: translateX(-924px); }
+  100% { transform: translateX(-50%); }
 }
 
 /* ── Fade-up entrance (mirrors desktop hero animation) ── */

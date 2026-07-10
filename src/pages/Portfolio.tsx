@@ -1,19 +1,12 @@
 import type { Page } from '../App'
 import PreFooter from '../components/PreFooter'
+import PortfolioGrid from '../components/PortfolioGrid'
 import './Portfolio.css'
 
 interface Props {
   go: (p: Page) => void
   goContactDesktop: () => void
 }
-
-const PLACEHOLDERS = [1, 2, 3]
-
-const CLIPS = [
-  { platform: 'Instagram Reels', title: 'Short-Form Content' },
-  { platform: 'TikTok', title: 'Short-Form Content' },
-  { platform: 'Instagram Reels', title: 'Short-Form Content' },
-]
 
 export default function Portfolio({ go, goContactDesktop }: Props) {
   return (
@@ -24,22 +17,7 @@ export default function Portfolio({ go, goContactDesktop }: Props) {
           <h1 className="portfolio-heading">Portfolio</h1>
         </section>
 
-        <section className="portfolio-grid fade-up" style={{ animationDelay: '0.1s' }}>
-          {PLACEHOLDERS.map(n => (
-            <div key={n} className="portfolio-item">
-              <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-                <rect width="400" height="300" fill="#252220" />
-                <pattern id={`stripe-${n}`} patternUnits="userSpaceOnUse" width="20" height="20" patternTransform="rotate(45)">
-                  <line x1="0" y1="0" x2="0" y2="20" stroke="#2e2b28" strokeWidth="10" />
-                </pattern>
-                <rect width="400" height="300" fill={`url(#stripe-${n})`} opacity="0.5" />
-                <text x="200" y="155" textAnchor="middle" fill="#454038" fontFamily="sans-serif" fontSize="13" letterSpacing="2">
-                  COMING SOON
-                </text>
-              </svg>
-            </div>
-          ))}
-        </section>
+        <PortfolioGrid variant="mobile" className="fade-up" style={{ animationDelay: '0.1s' }} />
 
         <section className="portfolio-promo-row fade-up" style={{ animationDelay: '0.2s' }}>
           <div className="portfolio-promo-card portfolio-promo-awards">
@@ -67,28 +45,11 @@ export default function Portfolio({ go, goContactDesktop }: Props) {
             <h1 className="dport-heading">Portfolio</h1>
           </div>
           <p className="dport-desc">
-            Short-form video content, social strategy, and creative direction. More client work
-            on the way — this is just the beginning.
+            Short-form video content, social strategy, and creative direction.
           </p>
         </section>
 
-        <section className="dport-grid dport-anim" style={{ animationDelay: '0.1s' }}>
-          {CLIPS.map((clip, i) => (
-            <div className="dport-card" key={i}>
-              <div className="dport-thumb" />
-              <div className="dport-play">
-                <div className="dport-play-ring">
-                  <div className="dport-play-tri" />
-                </div>
-              </div>
-              <div className="dport-scrim" />
-              <div className="dport-label">
-                <span className="dport-platform">{clip.platform}</span>
-                <h3 className="dport-title">{clip.title}</h3>
-              </div>
-            </div>
-          ))}
-        </section>
+        <PortfolioGrid variant="desktop" className="dport-anim" style={{ animationDelay: '0.1s' }} />
 
         <section className="dport-bottom dport-anim" style={{ animationDelay: '0.2s' }}>
           <div className="dport-progress">

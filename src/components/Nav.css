@@ -81,11 +81,11 @@
 @media (max-width: 768px) {
   .nav-inner {
     padding: 0 20px;
-    height: 52px;
+    height: 68px;
   }
 
   .nav-logo-img {
-    height: 30px;
+    height: 44px;
   }
 
   .nav-links-desktop {
@@ -179,18 +179,9 @@
   cursor: pointer;
 }
 
-.dnav-badge {
-  width: 38px;
-  height: 38px;
-  border: 1.5px solid rgba(237, 232, 216, 0.6);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--dsk-font-display);
-  font-size: 12px;
-  letter-spacing: 1.5px;
-  color: var(--dsk-text-primary);
+.dnav-logo-img {
+  height: 48px;
+  width: auto;
   flex-shrink: 0;
 }
 

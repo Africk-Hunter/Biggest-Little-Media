@@ -30,8 +30,8 @@ export default function Contact() {
         <div className="contact-info-row">
           <div className="contact-info-card">
             <span className="contact-info-label">Email</span>
-            <a href="mailto:hello@biggestlittlemedia.com" className="contact-info-value">
-              hello@biggestlittlemedia.com
+            <a href="mailto:biggestlittlemedia@gmail.com" className="contact-info-value">
+              biggestlittlemedia@gmail.com
             </a>
           </div>
           <div className="contact-info-card">
