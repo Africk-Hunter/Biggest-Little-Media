@@ -17,7 +17,7 @@ const VALUES = [
   {
     num: '01',
     title: 'Strategy First',
-    body: "Every post, every campaign, every decision is rooted in data and intention. I don't believe in posting for the sake of posting — your content should always have a purpose and move your brand forward.",
+    body: "Every post, every campaign, every decision is rooted in data and intention. I don't believe in posting for the sake of posting. Your content should always have a purpose and move your brand forward.",
   },
   {
     num: '02',
@@ -27,7 +27,7 @@ const VALUES = [
   {
     num: '03',
     title: 'Real Partnership',
-    body: "You're not just a client — you're a collaborator. I take the time to understand your goals, your audience, and your vision so that the work we create together actually feels like you.",
+    body: "You're not just a client, you're a collaborator. I take the time to understand your goals, your audience, and your vision so that the work we create together actually feels like you.",
   },
 ]
 

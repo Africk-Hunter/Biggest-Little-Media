@@ -17,8 +17,8 @@ export const PLACEMENTS = ['home-carousel', 'portfolio-grid'] as const
 export type Placement = (typeof PLACEMENTS)[number]
 
 export const PLACEMENT_LABELS: Record<Placement, string> = {
-  'home-carousel': 'Home — Social Content Carousel',
-  'portfolio-grid': 'Portfolio — Featured Works Grid',
+  'home-carousel': 'Home: Social Content Carousel',
+  'portfolio-grid': 'Portfolio: Featured Works Grid',
 }
 
 export interface Video {

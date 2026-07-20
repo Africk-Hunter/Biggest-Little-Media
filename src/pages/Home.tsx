@@ -1,8 +1,13 @@
 import { useState } from 'react'
+import { createPortal } from 'react-dom'
 import type { Page } from '../App'
 import Carousel from '../components/Carousel'
 import PreFooter from '../components/PreFooter'
+import DevHeroArtTuner, { HERO_ART_DEFAULTS, heroArtCssVars, type HeroArtValues } from '../components/DevHeroArtTuner'
 import './Home.css'
+
+// Flip to true to bring back the hero art position/size tuner (bottom-left, dev only).
+const SHOW_HERO_ART_TUNER = false
 
 interface Props {
   go: (p: Page) => void
@@ -12,6 +17,7 @@ interface Props {
 export default function Home({ go, goContactDesktop }: Props) {
   const [formSent, setFormSent] = useState(false)
   const [form, setForm] = useState({ name: '', email: '', phone: '', notes: '' })
+  const [heroArtValues, setHeroArtValues] = useState<HeroArtValues>(HERO_ART_DEFAULTS)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm(f => ({ ...f, [e.target.name]: e.target.value }))
@@ -24,6 +30,13 @@ export default function Home({ go, goContactDesktop }: Props) {
 
   return (
     <>
+      {SHOW_HERO_ART_TUNER &&
+        import.meta.env.DEV &&
+        createPortal(
+          <DevHeroArtTuner values={heroArtValues} setValues={setHeroArtValues} />,
+          document.body
+        )}
+
       {/* ── Mobile / tablet home (<1024px) ── */}
       <div className="home">
         {/* Hero */}
@@ -61,7 +74,10 @@ export default function Home({ go, goContactDesktop }: Props) {
       {/* ── Desktop home (>=1024px) ── */}
       <div className="dhome">
         {/* Hero */}
-        <section className="dhome-hero">
+        <section className="dhome-hero" style={heroArtCssVars(heroArtValues)}>
+          <div className="dhome-hero-art dhome-anim" style={{ animationDelay: '0.2s' }}>
+            <img src="/Couch_no_bg.png" alt="" className="dhome-hero-art-img" />
+          </div>
           <h1 className="dhome-headline dhome-anim" style={{ animationDelay: '0s' }}>
             Biggest <span className="dhome-script">little</span> Media
           </h1>
@@ -81,7 +97,16 @@ export default function Home({ go, goContactDesktop }: Props) {
         </section>
 
         {/* Carousel */}
-        <section className="dhome-carousel-section dhome-anim" style={{ animationDelay: '0.1s' }}>
+        <section
+          className="dhome-carousel-section dhome-anim dhome-carousel-section-link"
+          style={{ animationDelay: '0.1s' }}
+          onClick={() => go('portfolio')}
+          role="link"
+          tabIndex={0}
+          onKeyDown={e => {
+            if (e.key === 'Enter' || e.key === ' ') go('portfolio')
+          }}
+        >
           <p className="dhome-carousel-label">Featured Work</p>
           <Carousel variant="desktop" speedSeconds={30} />
         </section>

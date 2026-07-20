@@ -1,0 +1,62 @@
+/* ── Mobile / tablet footer (<1024px) ── */
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--bg-card);
+  color: var(--text-dim);
+  padding: 24px 20px;
+  text-align: center;
+}
+
+.footer-text {
+  font-family: var(--font-body);
+  font-size: clamp(11px, 3vw, 13px);
+}
+
+.footer-text a {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.footer-text a:hover {
+  text-decoration: underline;
+}
+
+/* ── Desktop footer (>=1024px) ── */
+.dfooter {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .footer {
+    display: none;
+  }
+
+  .dfooter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    background: var(--dsk-nav-grad-top, #141210);
+    color: var(--dsk-text-muted, #a09a8c);
+    padding: 32px 24px;
+    text-align: center;
+  }
+
+  .dfooter-text {
+    font-family: var(--dsk-font-body, 'DM Sans', sans-serif);
+    font-size: 13px;
+    letter-spacing: 0.2px;
+  }
+
+  .dfooter-text a {
+    color: var(--dsk-text-primary, #ede8d8);
+    text-decoration: none;
+  }
+
+  .dfooter-text a:hover {
+    text-decoration: underline;
+  }
+}

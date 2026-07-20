@@ -15,7 +15,7 @@ export default function Dashboard() {
   return (
     <div className="admin-dashboard">
       <header className="admin-header">
-        <h1>Biggest Little Media — Admin</h1>
+        <h1>Biggest Little Media Admin</h1>
         <div className="admin-header-right">
           <span>{user?.email}</span>
           <button type="button" onClick={() => signOut(auth)}>

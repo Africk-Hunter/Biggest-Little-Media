@@ -22,7 +22,7 @@ export default class AdminErrorBoundary extends Component<Props, State> {
     if (this.state.error) {
       return (
         <div className="admin-loading" style={{ flexDirection: 'column', gap: 8, textAlign: 'center', padding: 24 }}>
-          <p>Admin panel failed to load — Firebase isn't configured yet.</p>
+          <p>Admin panel failed to load. Firebase isn't configured yet.</p>
           <p style={{ fontSize: 13, opacity: 0.7 }}>See docs/SETUP.md and add a .env.local. ({this.state.error.message})</p>
         </div>
       )

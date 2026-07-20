@@ -184,6 +184,17 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: saturate(0.62) contrast(1.06) brightness(0.96);
+}
+
+.dcar-card-video::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 18, 16, 0.28);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .dcar-scrim {
@@ -211,4 +222,15 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: saturate(0.62) contrast(1.06) brightness(0.96);
+}
+
+.tiktok-card-video::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 18, 16, 0.28);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 1;
 }

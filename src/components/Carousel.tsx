@@ -1,14 +1,12 @@
-import { useEffect, useRef, useState } from 'react'
 import { useVideos } from '../hooks/useVideos'
 import { useInView } from '../hooks/useInView'
-import { optimizedPosterUrl, optimizedVideoUrl } from '../lib/cloudinary'
+import { useLazyVideoPlayback } from '../hooks/useLazyVideoPlayback'
+import { MEDIA_WIDTH_DESKTOP, MEDIA_WIDTH_MOBILE, optimizedPosterUrl, optimizedVideoUrl } from '../lib/cloudinary'
 import type { Video } from '../lib/videos'
 import './Carousel.css'
 
-// Card display sizes (doubled for retina) used to request right-sized
-// renditions from Cloudinary instead of the full source file.
-const DESKTOP_CARD_WIDTH = 440
-const MOBILE_CARD_WIDTH = 280
+const DESKTOP_CARD_WIDTH = MEDIA_WIDTH_DESKTOP
+const MOBILE_CARD_WIDTH = MEDIA_WIDTH_MOBILE
 
 const MOBILE_PLACEHOLDERS = [
   { bg: '#c8c0b8', likes: '3.2k', prog: 35 },
@@ -35,6 +33,23 @@ function repeatToFill<T>(list: T[], minCount: number): T[] {
   return Array.from({ length: copies }, () => list).flat()
 }
 
+// A video repeated many times over within one copy of the track only needs
+// to actually stream once per copy — every other occurrence in that copy is
+// a frozen poster frame, indistinguishable at marquee speed. Marks the first
+// occurrence of each video id (within `base`, i.e. per track copy) as the
+// live instance, then repeats that same pattern for the second, identical
+// copy — deduping across both copies instead would leave the entire second
+// copy frozen, since every id it contains already appeared once in the first.
+function markPrimary(base: Video[]): boolean[] {
+  const seen = new Set<string>()
+  const primaryInBase = base.map(v => {
+    const isPrimary = !seen.has(v.id)
+    seen.add(v.id)
+    return isPrimary
+  })
+  return [...primaryInBase, ...primaryInBase]
+}
+
 interface Props {
   variant: 'mobile' | 'desktop'
   speedSeconds?: number
@@ -49,17 +64,13 @@ export default function Carousel({ variant, speedSeconds = 30 }: Props) {
   const hasVideos = videos !== null && videos.length > 0
 
   if (variant === 'desktop') {
-    const base = hasVideos
-      ? repeatToFill(videos!, DESKTOP_MIN_COPY_ITEMS)
-      : repeatToFill(Array.from({ length: DESKTOP_PLACEHOLDER_COUNT }), DESKTOP_MIN_COPY_ITEMS)
-    const items = [...base, ...base]
-    return (
-      <div className="dcar-wrap">
-        <div className="dcar-track" style={{ animationDuration: `${speedSeconds}s` }}>
-          {items.map((item, i) =>
-            hasVideos ? (
-              <DesktopVideoCard key={(item as Video).id + i} video={item as Video} />
-            ) : (
+    if (!hasVideos) {
+      const items = repeatToFill(Array.from({ length: DESKTOP_PLACEHOLDER_COUNT }), DESKTOP_MIN_COPY_ITEMS)
+      const doubled = [...items, ...items]
+      return (
+        <div className="dcar-wrap">
+          <div className="dcar-track" style={{ animationDuration: `${speedSeconds}s` }}>
+            {doubled.map((_, i) => (
               <div className="dcar-card" key={i}>
                 <div className="dcar-texture" />
                 <div className="dcar-play">
@@ -74,6 +85,23 @@ export default function Carousel({ variant, speedSeconds = 30 }: Props) {
                   </div>
                 </div>
               </div>
+            ))}
+          </div>
+        </div>
+      )
+    }
+
+    const base = repeatToFill(videos!, DESKTOP_MIN_COPY_ITEMS)
+    const items = [...base, ...base]
+    const primary = markPrimary(base)
+    return (
+      <div className="dcar-wrap">
+        <div className="dcar-track" style={{ animationDuration: `${speedSeconds}s` }}>
+          {items.map((video, i) =>
+            primary[i] ? (
+              <DesktopVideoCard key={video.id + i} video={video} />
+            ) : (
+              <DesktopPosterCard key={video.id + i} video={video} />
             ),
           )}
         </div>
@@ -81,26 +109,51 @@ export default function Carousel({ variant, speedSeconds = 30 }: Props) {
     )
   }
 
-  const mobileBase = hasVideos ? repeatToFill(videos!, MOBILE_MIN_COPY_ITEMS) : repeatToFill(MOBILE_PLACEHOLDERS, MOBILE_MIN_COPY_ITEMS)
+  if (!hasVideos) {
+    const items = repeatToFill(MOBILE_PLACEHOLDERS, MOBILE_MIN_COPY_ITEMS)
+    const doubled = [...items, ...items]
+    return (
+      <div className="tiktok-carousel-wrap">
+        <div className="tiktok-track">
+          {doubled.map((placeholder, i) => (
+            <div key={i} className="tiktok-card" style={{ backgroundColor: placeholder.bg }}>
+              <div className="tiktok-card-bar">
+                <div className="tiktok-card-bar-fill" style={{ width: `${placeholder.prog}%` }} />
+              </div>
+              <div className="tiktok-card-meta">
+                <span className="tiktok-card-likes">♥ {placeholder.likes}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  const mobileBase = repeatToFill(videos!, MOBILE_MIN_COPY_ITEMS)
   const items = [...mobileBase, ...mobileBase]
+  const primary = markPrimary(mobileBase)
   return (
     <div className="tiktok-carousel-wrap">
       <div className="tiktok-track">
-        {items.map((item, i) =>
-          hasVideos ? (
-            <MobileVideoCard key={(item as Video).id + i} video={item as Video} />
+        {items.map((video, i) =>
+          primary[i] ? (
+            <MobileVideoCard key={video.id + i} video={video} />
           ) : (
-            <div key={i} className="tiktok-card" style={{ backgroundColor: (item as typeof MOBILE_PLACEHOLDERS[number]).bg }}>
-              <div className="tiktok-card-bar">
-                <div className="tiktok-card-bar-fill" style={{ width: `${(item as typeof MOBILE_PLACEHOLDERS[number]).prog}%` }} />
-              </div>
-              <div className="tiktok-card-meta">
-                <span className="tiktok-card-likes">♥ {(item as typeof MOBILE_PLACEHOLDERS[number]).likes}</span>
-              </div>
-            </div>
+            <MobilePosterCard key={video.id + i} video={video} />
           ),
         )}
       </div>
+    </div>
+  )
+}
+
+function DesktopPosterCard({ video }: { video: Video }) {
+  return (
+    <div className="dcar-card dcar-card-video">
+      <img className="dcar-poster" src={optimizedPosterUrl(video.posterUrl, DESKTOP_CARD_WIDTH)} alt="" loading="lazy" />
+      <div className="dcar-scrim" />
+      <span className="dcar-label dcar-label-video">{video.platform}</span>
     </div>
   )
 }
@@ -130,6 +183,14 @@ function DesktopVideoCard({ video }: { video: Video }) {
   )
 }
 
+function MobilePosterCard({ video }: { video: Video }) {
+  return (
+    <div className="tiktok-card tiktok-card-video">
+      <img className="tiktok-poster" src={optimizedPosterUrl(video.posterUrl, MOBILE_CARD_WIDTH)} alt="" loading="lazy" />
+    </div>
+  )
+}
+
 function MobileVideoCard({ video }: { video: Video }) {
   const { ref, inView } = useInView<HTMLDivElement>()
   const { loaded, videoRef } = useLazyVideoPlayback(inView)
@@ -151,29 +212,4 @@ function MobileVideoCard({ video }: { video: Video }) {
       )}
     </div>
   )
-}
-
-// Once a card has scrolled into view, keeps its <video> mounted (avoids
-// remount jank as the marquee loops it back into frame) and drives
-// play/pause off visibility so the browser isn't decoding dozens of
-// duplicated marquee copies at once. `loaded` is included as its own play
-// effect dependency (not just `inView`) because the <video> element only
-// mounts a render *after* `inView` first flips true — without it the play
-// effect fires before the ref exists and never re-fires once it does.
-function useLazyVideoPlayback(inView: boolean) {
-  const [loaded, setLoaded] = useState(inView)
-  const videoRef = useRef<HTMLVideoElement>(null)
-
-  useEffect(() => {
-    if (inView) setLoaded(true)
-  }, [inView])
-
-  useEffect(() => {
-    const el = videoRef.current
-    if (!el) return
-    if (inView) el.play().catch(() => {})
-    else el.pause()
-  }, [inView, loaded])
-
-  return { loaded, videoRef }
 }

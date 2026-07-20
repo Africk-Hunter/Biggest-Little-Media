@@ -28,7 +28,7 @@ export default function VideoLibrary({ videos }: Props) {
   }
 
   if (videos.length === 0) {
-    return <p className="admin-empty">No videos uploaded yet — use the form above to add your first clip.</p>
+    return <p className="admin-empty">No videos uploaded yet. Use the form above to add your first clip.</p>
   }
 
   return (

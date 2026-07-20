@@ -69,7 +69,7 @@ const DESKTOP_SERVICES = [
   {
     num: '02',
     title: 'Marketing Strategies',
-    desc: 'Data-backed strategies built around your audience and your goals — not guesswork, not generic templates.',
+    desc: 'Data-backed strategies built around your audience and your goals, not guesswork, not generic templates.',
     items: [
       'Comprehensive analysis of your brand, market, and competitors',
       'Deep-dive competitor research to uncover real opportunities',
@@ -91,7 +91,7 @@ const DESKTOP_SERVICES = [
   {
     num: '04',
     title: 'Social Media Audits',
-    desc: 'A clear-eyed look at where you stand today — and a precise roadmap for what to do next.',
+    desc: 'A clear-eyed look at where you stand today, and a precise roadmap for what to do next.',
     items: [
       'Full profile and bio audit across every active platform',
       'Content quality, consistency, and brand tone review',

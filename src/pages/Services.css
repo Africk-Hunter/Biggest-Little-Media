@@ -72,7 +72,7 @@
 }
 
 .service-card-bullets li::before {
-  content: '—';
+  content: '•';
   position: absolute;
   left: 0;
   color: rgba(26, 24, 21, 0.35);

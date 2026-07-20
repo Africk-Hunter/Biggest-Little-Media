@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Nav from './components/Nav'
+import Footer from './components/Footer'
 import Home from './pages/Home'
 import Services from './pages/Services'
 import Portfolio from './pages/Portfolio'
@@ -96,6 +97,8 @@ export default function App() {
           </div>
         </div>
       </main>
+
+      <Footer />
     </div>
   )
 }
