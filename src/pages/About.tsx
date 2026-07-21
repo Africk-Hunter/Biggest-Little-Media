@@ -7,12 +7,6 @@ interface Props {
   goContactDesktop: () => void
 }
 
-const STATS = [
-  { value: 'Reno, NV', label: 'Based In' },
-  { value: 'Personal', label: 'Every Strategy' },
-  { value: 'Open', label: 'Taking New Clients' },
-]
-
 const VALUES = [
   {
     num: '01',
@@ -38,24 +32,17 @@ export default function About({ go, goContactDesktop }: Props) {
       <div className="about">
         {/* Portrait */}
         <div className="about-portrait-wrap fade-up" style={{ animationDelay: '0s' }}>
-          <svg
-            className="about-portrait"
-            viewBox="0 0 393 300"
-            xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="xMidYMid slice"
-          >
-            <rect width="393" height="300" fill="#252220" />
-            <pattern id="portrait-stripe" patternUnits="userSpaceOnUse" width="24" height="24" patternTransform="rotate(45)">
-              <line x1="0" y1="0" x2="0" y2="24" stroke="#2e2b28" strokeWidth="12" />
-            </pattern>
-            <rect width="393" height="300" fill="url(#portrait-stripe)" opacity="0.6" />
-            {/* Simple line-art figure placeholder */}
-            <ellipse cx="196" cy="105" rx="38" ry="46" fill="none" stroke="#454038" strokeWidth="1.5" />
-            <path d="M120 260 Q196 200 272 260" fill="none" stroke="#454038" strokeWidth="1.5" />
-            <line x1="196" y1="151" x2="196" y2="210" stroke="#454038" strokeWidth="1.5" />
-            <line x1="196" y1="175" x2="155" y2="198" stroke="#454038" strokeWidth="1.5" />
-            <line x1="196" y1="175" x2="237" y2="198" stroke="#454038" strokeWidth="1.5" />
-          </svg>
+          <picture>
+            <source srcSet="/AboutMe2.webp" type="image/webp" />
+            <img
+              src="/AboutMe2.jpeg"
+              alt=""
+              className="about-portrait-img"
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+            />
+          </picture>
         </div>
 
         <section className="about-content fade-up" style={{ animationDelay: '0.1s' }}>
@@ -97,8 +84,39 @@ export default function About({ go, goContactDesktop }: Props) {
       <div className="dabt">
         <section className="dabt-hero">
           <div className="dabt-portrait-wrap dabt-anim" style={{ animationDelay: '0s' }}>
-            <div className="dabt-portrait" />
-            <div className="dabt-portrait-fade" />
+            <div className="dabt-portrait-grid">
+              <div className="dabt-portrait-cell is-forward">
+                <picture>
+                  <source srcSet="/AboutMe1.webp" type="image/webp" />
+                  <img
+                    src="/AboutMe1.jpeg"
+                    alt=""
+                    className="dabt-portrait-img"
+                    loading="eager"
+                    fetchPriority="high"
+                    decoding="async"
+                  />
+                </picture>
+              </div>
+              <div className="dabt-portrait-cell">
+                <picture>
+                  <source srcSet="/AboutMe2.webp" type="image/webp" />
+                  <img src="/AboutMe2.jpeg" alt="" className="dabt-portrait-img" loading="eager" decoding="async" />
+                </picture>
+              </div>
+              <div className="dabt-portrait-cell">
+                <picture>
+                  <source srcSet="/AboutMe3.webp" type="image/webp" />
+                  <img src="/AboutMe3.jpeg" alt="" className="dabt-portrait-img" loading="eager" decoding="async" />
+                </picture>
+              </div>
+              <div className="dabt-portrait-cell is-forward">
+                <picture>
+                  <source srcSet="/AboutMe4.webp" type="image/webp" />
+                  <img src="/AboutMe4.jpeg" alt="" className="dabt-portrait-img" loading="eager" decoding="async" />
+                </picture>
+              </div>
+            </div>
           </div>
 
           <div className="dabt-bio dabt-anim" style={{ animationDelay: '0.1s' }}>
@@ -127,15 +145,6 @@ export default function About({ go, goContactDesktop }: Props) {
               </button>
             </div>
           </div>
-        </section>
-
-        <section className="dabt-stats dabt-anim" style={{ animationDelay: '0.1s' }}>
-          {STATS.map(stat => (
-            <div className="dabt-stat" key={stat.label}>
-              <span className="dabt-stat-value">{stat.value}</span>
-              <span className="dabt-stat-label">{stat.label}</span>
-            </div>
-          ))}
         </section>
 
         <section className="dabt-values dabt-anim" style={{ animationDelay: '0.1s' }}>

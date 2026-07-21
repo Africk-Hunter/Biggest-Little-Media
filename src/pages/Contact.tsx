@@ -1,8 +1,11 @@
 import { useState } from 'react'
+import emailjs from '@emailjs/browser'
 import './Contact.css'
 
 export default function Contact() {
   const [formSent, setFormSent] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState(false)
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -14,9 +17,24 @@ export default function Contact() {
     setForm(f => ({ ...f, [e.target.name]: e.target.value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setFormSent(true)
+    setSending(true)
+    setError(false)
+    try {
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        form,
+        { publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY }
+      )
+      setFormSent(true)
+    } catch (err) {
+      console.error('EmailJS send failed:', err)
+      setError(true)
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -31,12 +49,19 @@ export default function Contact() {
           <div className="contact-info-card">
             <span className="contact-info-label">Email</span>
             <a href="mailto:biggestlittlemedia@gmail.com" className="contact-info-value">
-              biggestlittlemedia@gmail.com
+              BiggestLittleMedia@gmail.com
             </a>
           </div>
           <div className="contact-info-card">
             <span className="contact-info-label">Social Media</span>
-            <a href="#" className="contact-info-value">@biggestlittlemedia</a>
+            <a
+              href="https://www.instagram.com/biggestlittlemedia"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-info-value"
+            >
+              @BiggestLittleMedia
+            </a>
           </div>
         </div>
 
@@ -87,8 +112,13 @@ export default function Contact() {
                   onChange={handleChange}
                 />
               </div>
-              <button type="submit" className="contact-submit">
-                Send Message
+              {error && (
+                <p className="contact-error">
+                  Something went wrong sending your message. Please try again or email us directly.
+                </p>
+              )}
+              <button type="submit" className="contact-submit" disabled={sending}>
+                {sending ? 'Sending...' : 'Send Message'}
               </button>
             </form>
           )}

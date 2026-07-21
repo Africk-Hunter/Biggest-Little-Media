@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { createPortal } from 'react-dom'
 import type { Page } from '../App'
 import Carousel from '../components/Carousel'
-import PreFooter from '../components/PreFooter'
 import DevHeroArtTuner, { HERO_ART_DEFAULTS, heroArtCssVars, type HeroArtValues } from '../components/DevHeroArtTuner'
 import './Home.css'
 
@@ -63,12 +62,62 @@ export default function Home({ go, goContactDesktop }: Props) {
 
         {/* TikTok carousel */}
         <section className="home-carousel-section fade-up" style={{ animationDelay: '0.1s' }}>
-          <p className="home-carousel-label">Social Content</p>
+          <p className="home-carousel-label">Featured Work</p>
           <Carousel variant="mobile" />
         </section>
 
-        {/* Pre-footer */}
-        <PreFooter variant="mobile" onCta={() => go('contact')} />
+        {/* Contact (also reachable via the dedicated Contact page) */}
+        <section id="mob-contact-section" className="home-contact fade-up" style={{ animationDelay: '0.1s' }}>
+          <h2 className="home-contact-heading">Get In Touch</h2>
+          <p className="home-contact-sub">Reach out and let's build something together.</p>
+
+          <div className="home-contact-cards">
+            <a href="mailto:biggestlittlemedia@gmail.com" className="home-contact-card">
+              <div className="home-contact-icon">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#ede8d8" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="5" width="20" height="15" rx="2"></rect>
+                  <polyline points="2,5 12,13 22,5"></polyline>
+                </svg>
+              </div>
+              <div className="home-contact-text">
+                <p className="home-contact-label">Email</p>
+                <p className="home-contact-value">BiggestLittleMedia@gmail.com</p>
+              </div>
+            </a>
+            <a
+              href="https://www.instagram.com/biggestlittlemedia"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="home-contact-card"
+            >
+              <div className="home-contact-icon">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#ede8d8" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="8" r="4"></circle>
+                  <path d="M4 20c0-4 3.6-6 8-6s8 2 8 6"></path>
+                </svg>
+              </div>
+              <div className="home-contact-text">
+                <p className="home-contact-label">Social Media</p>
+                <p className="home-contact-value">@BiggestLittleMedia</p>
+              </div>
+            </a>
+          </div>
+
+          {formSent ? (
+            <div className="home-contact-success">
+              <p className="home-contact-success-headline">Message Sent!</p>
+              <p className="home-contact-success-sub">We'll be in touch soon.</p>
+            </div>
+          ) : (
+            <form className="home-contact-form" onSubmit={handleSubmit}>
+              <input type="text" name="name" placeholder="Name" value={form.name} onChange={handleChange} required />
+              <input type="email" name="email" placeholder="Email Address" value={form.email} onChange={handleChange} required />
+              <input type="tel" name="phone" placeholder="Phone Number" value={form.phone} onChange={handleChange} />
+              <textarea name="notes" placeholder="Other Notes" rows={4} value={form.notes} onChange={handleChange} />
+              <button type="submit" className="home-contact-send">Send</button>
+            </form>
+          )}
+        </section>
       </div>
 
       {/* ── Desktop home (>=1024px) ── */}
@@ -130,7 +179,12 @@ export default function Home({ go, goContactDesktop }: Props) {
                   <p className="dhome-contact-value">BiggestLittleMedia@gmail.com</p>
                 </div>
               </a>
-              <a href="#" className="dhome-contact-card">
+              <a
+                href="https://www.instagram.com/biggestlittlemedia"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="dhome-contact-card"
+              >
                 <div className="dhome-contact-icon">
                   <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#ede8d8" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="12" cy="8" r="4"></circle>

@@ -19,7 +19,7 @@
 
 @media (max-width: 768px) {
   .main-content {
-    padding-top: 52px;
+    padding-top: 69px; /* mobile nav height (68px) + 1px border */
   }
 }
 

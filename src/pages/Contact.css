@@ -110,6 +110,13 @@
   border-color: #1a1815;
 }
 
+.contact-error {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: #b3402f;
+  margin-top: 12px;
+}
+
 .contact-submit {
   margin-top: 28px;
   align-self: flex-start;
@@ -129,6 +136,11 @@
 
 .contact-submit:hover {
   opacity: 0.82;
+}
+
+.contact-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 /* Success state */

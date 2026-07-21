@@ -41,7 +41,18 @@ No credit card required for Cloudinary's free plan (25 credits/month — storage
 
 One consequence: Cloudinary's unsigned API also can't delete files (deletion requires a signed request). The admin panel's "Delete" button removes the video from the site (Firestore); the underlying file stays in Cloudinary until removed manually from the **Media Library** there. Not automatic — a manual cleanup step if storage ever gets close to the free-tier limit.
 
-## 3. Run it
+## 3. EmailJS (contact form)
+
+No credit card required — EmailJS's free plan covers 200 emails/month, plenty for a contact form.
+
+1. Sign up at [emailjs.com](https://www.emailjs.com).
+2. **Email Services** → Add New Service → connect the Gmail account that should receive messages (e.g. `biggestlittlemedia@gmail.com`). Copy the **Service ID** into `VITE_EMAILJS_SERVICE_ID`.
+3. **Email Templates** → Create New Template. Use `{{name}}`, `{{email}}`, `{{phone}}`, and `{{notes}}` as variables in the template body — these match the contact form's field names. Copy the **Template ID** into `VITE_EMAILJS_TEMPLATE_ID`.
+4. **Account > General** → copy the **Public Key** into `VITE_EMAILJS_PUBLIC_KEY`.
+
+**Security note:** the public key ships in the site's JS bundle by design (same tradeoff as the Cloudinary unsigned preset) — EmailJS's client-side SDK is built to work this way. To prevent abuse, restrict allowed domains under **Account > Security > Allowed origins**.
+
+## 4. Run it
 
 ```
 npm install
