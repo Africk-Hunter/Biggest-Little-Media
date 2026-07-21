@@ -1,4 +1,5 @@
 import type { Page } from '../App'
+import { PAGE_TO_PATH } from '../App'
 import './Nav.css'
 
 interface Props {
@@ -16,6 +17,11 @@ const navLinks: { label: string; page: Page }[] = [
   { label: 'Services', page: 'services' },
 ]
 
+function navigate(e: React.MouseEvent, go: (p: Page) => void, p: Page) {
+  e.preventDefault()
+  go(p)
+}
+
 export default function Nav({ page, go, goContactDesktop, menuOpen, toggleMenu }: Props) {
   return (
     <>
@@ -23,27 +29,29 @@ export default function Nav({ page, go, goContactDesktop, menuOpen, toggleMenu }
       <header className="nav">
         <div className="nav-inner">
           {/* Logo */}
-          <button className="nav-logo" onClick={() => go('home')}>
+          <a className="nav-logo" href={PAGE_TO_PATH.home} onClick={e => navigate(e, go, 'home')}>
             <img src="/Logo.svg" alt="Biggest Little Media" className="nav-logo-img" />
-          </button>
+          </a>
 
           {/* Desktop-width links (still within the mobile design, shown 769-1023px) */}
           <nav className="nav-links-desktop">
             {navLinks.map(({ label, page: p }) => (
-              <button
+              <a
                 key={p}
                 className={`nav-link ${page === p ? 'active' : ''}`}
-                onClick={() => go(p)}
+                href={PAGE_TO_PATH[p]}
+                onClick={e => navigate(e, go, p)}
               >
                 {label}
-              </button>
+              </a>
             ))}
-            <button
+            <a
               className={`nav-contact-btn ${page === 'contact' ? 'active' : ''}`}
-              onClick={() => go('contact')}
+              href={PAGE_TO_PATH.contact}
+              onClick={e => navigate(e, go, 'contact')}
             >
               Contact
-            </button>
+            </a>
           </nav>
 
           {/* Hamburger */}
@@ -72,20 +80,22 @@ export default function Nav({ page, go, goContactDesktop, menuOpen, toggleMenu }
           <div className="nav-mobile-overlay">
             <div className="nav-mobile-links">
               {navLinks.map(({ label, page: p }) => (
-                <button
+                <a
                   key={p}
                   className={`nav-mobile-link ${page === p ? 'active' : ''}`}
-                  onClick={() => go(p)}
+                  href={PAGE_TO_PATH[p]}
+                  onClick={e => navigate(e, go, p)}
                 >
                   {label}
-                </button>
+                </a>
               ))}
-              <button
+              <a
                 className="nav-mobile-contact-btn"
-                onClick={() => go('contact')}
+                href={PAGE_TO_PATH.contact}
+                onClick={e => navigate(e, go, 'contact')}
               >
                 Contact
-              </button>
+              </a>
             </div>
           </div>
         )}
@@ -93,20 +103,21 @@ export default function Nav({ page, go, goContactDesktop, menuOpen, toggleMenu }
 
       {/* ── Desktop nav (>=1024px) ── */}
       <nav className="dnav">
-        <button className="dnav-brand" onClick={() => go('home')}>
+        <a className="dnav-brand" href={PAGE_TO_PATH.home} onClick={e => navigate(e, go, 'home')}>
           <img src="/Logo.svg" alt="Biggest Little Media" className="dnav-logo-img" />
           <span className="dnav-wordmark">Biggest Little Media</span>
-        </button>
+        </a>
 
         <div className="dnav-links">
           {navLinks.map(({ label, page: p }) => (
-            <button
+            <a
               key={p}
               className={`dnav-link ${page === p ? 'is-active' : ''}`}
-              onClick={() => go(p)}
+              href={PAGE_TO_PATH[p]}
+              onClick={e => navigate(e, go, p)}
             >
               {label}
-            </button>
+            </a>
           ))}
           <button className="dnav-contact" onClick={goContactDesktop}>
             Contact

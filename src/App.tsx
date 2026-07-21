@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
+import Seo from './components/Seo'
 import Home from './pages/Home'
 import Services from './pages/Services'
 import Portfolio from './pages/Portfolio'
@@ -13,6 +15,27 @@ export type Page = 'home' | 'services' | 'portfolio' | 'about' | 'contact'
 const PAGE_ORDER: Page[] = ['home', 'about', 'portfolio', 'services', 'contact']
 const SLIDE_DURATION = 420
 
+export const PATH_TO_PAGE: Record<string, Page> = {
+  '/': 'home',
+  '/about': 'about',
+  '/portfolio': 'portfolio',
+  '/services': 'services',
+  '/contact': 'contact',
+}
+
+export const PAGE_TO_PATH: Record<Page, string> = {
+  home: '/',
+  about: '/about',
+  portfolio: '/portfolio',
+  services: '/services',
+  contact: '/contact',
+}
+
+function pageFromPath(pathname: string): Page | null {
+  const normalized = pathname.length > 1 ? pathname.replace(/\/+$/, '') : pathname
+  return PATH_TO_PAGE[normalized] ?? null
+}
+
 function renderPage(p: Page, go: (p: Page) => void, goContactDesktop: () => void) {
   switch (p) {
     case 'home': return <Home go={go} goContactDesktop={goContactDesktop} />
@@ -24,45 +47,58 @@ function renderPage(p: Page, go: (p: Page) => void, goContactDesktop: () => void
 }
 
 export default function App() {
-  const [page, setPage] = useState<Page>('home')
+  const location = useLocation()
+  const navigate = useNavigate()
+  const page = pageFromPath(location.pathname) ?? 'home'
   const [prevPage, setPrevPage] = useState<Page | null>(null)
   const [direction, setDirection] = useState<1 | -1>(1)
   const [menuOpen, setMenuOpen] = useState(false)
   const [contactScrollPending, setContactScrollPending] = useState(false)
   const mainRef = useRef<HTMLDivElement>(null)
   const slideTimeout = useRef<number | undefined>(undefined)
+  const prevPageRef = useRef<Page>(page)
+  // goContactDesktop lands on 'home' but wants the slide to look like it's
+  // heading to 'contact' (the rightmost nav item) — this ref lets the
+  // location-driven effect below override the direction just this once.
+  const directionOverrideRef = useRef<Page | null>(null)
 
   useEffect(() => () => window.clearTimeout(slideTimeout.current), [])
 
-  // Kicks off the slide bookkeeping. `directionKey` is looked up in PAGE_ORDER
-  // to decide which way the pages should slide — it's usually the page being
-  // navigated to, but goContactDesktop passes 'contact' even though it lands
-  // on 'home', so it slides in from the right like the rightmost nav item.
-  const beginSlide = useCallback((directionKey: Page) => {
-    const dir = PAGE_ORDER.indexOf(directionKey) > PAGE_ORDER.indexOf(page) ? 1 : -1
+  // Unknown paths fall back to rendering 'home' above; normalize the URL too.
+  useEffect(() => {
+    if (pageFromPath(location.pathname) === null) navigate('/', { replace: true })
+  }, [location.pathname, navigate])
+
+  useEffect(() => {
+    const prev = prevPageRef.current
+    prevPageRef.current = page
+    if (prev === page) return
+
+    const directionKey = directionOverrideRef.current ?? page
+    directionOverrideRef.current = null
+    const dir = PAGE_ORDER.indexOf(directionKey) > PAGE_ORDER.indexOf(prev) ? 1 : -1
     setDirection(dir)
-    setPrevPage(page)
+    setPrevPage(prev)
     window.clearTimeout(slideTimeout.current)
     slideTimeout.current = window.setTimeout(() => setPrevPage(null), SLIDE_DURATION)
   }, [page])
 
   const go = useCallback((p: Page) => {
-    if (p !== page) beginSlide(p)
-    setPage(p)
+    navigate(PAGE_TO_PATH[p])
     setMenuOpen(false)
     requestAnimationFrame(() => {
       if (mainRef.current) mainRef.current.scrollTop = 0
       window.scrollTo(0, 0)
     })
-  }, [page, beginSlide])
+  }, [navigate])
 
   // Desktop layout embeds the contact form on the home page instead of
   // routing to a dedicated page, so its "Contact" affordance scrolls there.
   const goContactDesktop = useCallback(() => {
-    if (page !== 'home') beginSlide('contact')
-    setPage('home')
+    directionOverrideRef.current = 'contact'
+    if (location.pathname !== '/') navigate('/')
     setContactScrollPending(true)
-  }, [page, beginSlide])
+  }, [navigate, location.pathname])
 
   useEffect(() => {
     if (page !== 'home' || !contactScrollPending || prevPage) return
@@ -77,6 +113,7 @@ export default function App() {
 
   return (
     <div className="site-wrapper desktop-site" data-page={page}>
+      <Seo page={page} />
       <Nav page={page} go={go} goContactDesktop={goContactDesktop} menuOpen={menuOpen} toggleMenu={toggleMenu} />
 
       <main ref={mainRef} className="main-content">

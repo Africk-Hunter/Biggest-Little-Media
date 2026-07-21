@@ -36,7 +36,7 @@ export default function About({ go, goContactDesktop }: Props) {
             <source srcSet="/AboutMe3.webp" type="image/webp" />
             <img
               src="/AboutMe3.jpeg"
-              alt=""
+              alt="Bianka Patel, social media strategist and brand consultant at Biggest Little Media"
               className="about-portrait-img"
               loading="eager"
               fetchPriority="high"
@@ -90,7 +90,7 @@ export default function About({ go, goContactDesktop }: Props) {
                   <source srcSet="/AboutMe1.webp" type="image/webp" />
                   <img
                     src="/AboutMe1.jpeg"
-                    alt=""
+                    alt="Bianka Patel, social media strategist and brand consultant at Biggest Little Media"
                     className="dabt-portrait-img"
                     loading="eager"
                     fetchPriority="high"
