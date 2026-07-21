@@ -33,9 +33,9 @@ export default function About({ go, goContactDesktop }: Props) {
         {/* Portrait */}
         <div className="about-portrait-wrap fade-up" style={{ animationDelay: '0s' }}>
           <picture>
-            <source srcSet="/AboutMe2.webp" type="image/webp" />
+            <source srcSet="/AboutMe3.webp" type="image/webp" />
             <img
-              src="/AboutMe2.jpeg"
+              src="/AboutMe3.jpeg"
               alt=""
               className="about-portrait-img"
               loading="eager"

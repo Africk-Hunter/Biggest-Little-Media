@@ -200,6 +200,7 @@
 .home-contact-form textarea {
   resize: none;
   line-height: 1.5;
+  overflow: hidden;
 }
 
 .home-contact-form input:focus,
@@ -223,6 +224,17 @@
 
 .home-contact-send:hover {
   opacity: 0.88;
+}
+
+.home-contact-send:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.home-contact-error {
+  font-size: 13px;
+  color: #b3402f;
+  margin: -4px 0 4px;
 }
 
 .home-contact-success {
@@ -505,6 +517,7 @@
 .dhome-form textarea {
   resize: none;
   line-height: 1.5;
+  overflow: hidden;
 }
 
 .dhome-form input:focus,
@@ -528,6 +541,17 @@
 
 .dhome-send:hover {
   background: #2a2520;
+}
+
+.dhome-send:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.dhome-contact-error {
+  font-size: 13px;
+  color: #b3402f;
+  margin: -4px 0 4px;
 }
 
 .dhome-success {

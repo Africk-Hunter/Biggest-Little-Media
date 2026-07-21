@@ -1,8 +1,11 @@
 import { useState } from 'react'
 import { createPortal } from 'react-dom'
+import emailjs from '@emailjs/browser'
 import type { Page } from '../App'
 import Carousel from '../components/Carousel'
 import DevHeroArtTuner, { HERO_ART_DEFAULTS, heroArtCssVars, type HeroArtValues } from '../components/DevHeroArtTuner'
+import { formatPhoneNumber } from '../utils/phone'
+import { autoResizeTextarea } from '../utils/autoResize'
 import './Home.css'
 
 // Flip to true to bring back the hero art position/size tuner (bottom-left, dev only).
@@ -15,16 +18,35 @@ interface Props {
 
 export default function Home({ go, goContactDesktop }: Props) {
   const [formSent, setFormSent] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState(false)
   const [form, setForm] = useState({ name: '', email: '', phone: '', notes: '' })
   const [heroArtValues, setHeroArtValues] = useState<HeroArtValues>(HERO_ART_DEFAULTS)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm(f => ({ ...f, [e.target.name]: e.target.value }))
+    const { name, value } = e.target
+    setForm(f => ({ ...f, [name]: name === 'phone' ? formatPhoneNumber(value) : value }))
+    if (e.target instanceof HTMLTextAreaElement) autoResizeTextarea(e.target)
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setFormSent(true)
+    setSending(true)
+    setError(false)
+    try {
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        form,
+        { publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY }
+      )
+      setFormSent(true)
+    } catch (err) {
+      console.error('EmailJS send failed:', err)
+      setError(true)
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -112,9 +134,10 @@ export default function Home({ go, goContactDesktop }: Props) {
             <form className="home-contact-form" onSubmit={handleSubmit}>
               <input type="text" name="name" placeholder="Name" value={form.name} onChange={handleChange} required />
               <input type="email" name="email" placeholder="Email Address" value={form.email} onChange={handleChange} required />
-              <input type="tel" name="phone" placeholder="Phone Number" value={form.phone} onChange={handleChange} />
+              <input type="tel" name="phone" placeholder="Phone Number" value={form.phone} onChange={handleChange} maxLength={14} />
               <textarea name="notes" placeholder="Other Notes" rows={4} value={form.notes} onChange={handleChange} />
-              <button type="submit" className="home-contact-send">Send</button>
+              {error && <p className="home-contact-error">Something went wrong. Please try again or email us directly.</p>}
+              <button type="submit" className="home-contact-send" disabled={sending}>{sending ? 'Sending...' : 'Send'}</button>
             </form>
           )}
         </section>
@@ -207,9 +230,10 @@ export default function Home({ go, goContactDesktop }: Props) {
               <form className="dhome-form" onSubmit={handleSubmit}>
                 <input type="text" name="name" placeholder="Name" value={form.name} onChange={handleChange} required />
                 <input type="email" name="email" placeholder="Email Address" value={form.email} onChange={handleChange} required />
-                <input type="tel" name="phone" placeholder="Phone Number" value={form.phone} onChange={handleChange} />
+                <input type="tel" name="phone" placeholder="Phone Number" value={form.phone} onChange={handleChange} maxLength={14} />
                 <textarea name="notes" placeholder="Other Notes" rows={5} value={form.notes} onChange={handleChange} />
-                <button type="submit" className="dhome-send">Send</button>
+                {error && <p className="dhome-contact-error">Something went wrong. Please try again or email us directly.</p>}
+                <button type="submit" className="dhome-send" disabled={sending}>{sending ? 'Sending...' : 'Send'}</button>
               </form>
             )}
           </div>

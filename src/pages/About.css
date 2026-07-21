@@ -153,15 +153,15 @@
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   overflow: hidden;
   background: var(--dsk-dark);
-  padding: 72px;
+  padding: 56px 40px 56px 140px;
 }
 
 .dabt-portrait-grid {
   position: relative;
-  width: min(100%, 460px);
+  width: min(100%, 540px);
   aspect-ratio: 4 / 5;
   display: grid;
   grid-template-columns: 1fr 1fr;

@@ -98,6 +98,7 @@
 
 .form-field textarea {
   line-height: 1.5;
+  overflow: hidden;
 }
 
 .form-field input::placeholder,

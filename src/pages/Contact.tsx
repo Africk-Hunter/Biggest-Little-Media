@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import emailjs from '@emailjs/browser'
+import { formatPhoneNumber } from '../utils/phone'
+import { autoResizeTextarea } from '../utils/autoResize'
 import './Contact.css'
 
 export default function Contact() {
@@ -14,7 +16,9 @@ export default function Contact() {
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm(f => ({ ...f, [e.target.name]: e.target.value }))
+    const { name, value } = e.target
+    setForm(f => ({ ...f, [name]: name === 'phone' ? formatPhoneNumber(value) : value }))
+    if (e.target instanceof HTMLTextAreaElement) autoResizeTextarea(e.target)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -101,6 +105,7 @@ export default function Contact() {
                   placeholder="Phone Number"
                   value={form.phone}
                   onChange={handleChange}
+                  maxLength={14}
                 />
               </div>
               <div className="form-field">
