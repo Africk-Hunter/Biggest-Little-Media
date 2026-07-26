@@ -4,12 +4,15 @@ import emailjs from '@emailjs/browser'
 import type { Page } from '../App'
 import Carousel from '../components/Carousel'
 import DevHeroArtTuner, { HERO_ART_DEFAULTS, heroArtCssVars, type HeroArtValues } from '../components/DevHeroArtTuner'
+import DevMobileHeroTuner, { MOBILE_HERO_DEFAULTS, mobileHeroCssVars, type MobileHeroValues } from '../components/DevMobileHeroTuner'
 import { formatPhoneNumber } from '../utils/phone'
 import { autoResizeTextarea } from '../utils/autoResize'
 import './Home.css'
 
 // Flip to true to bring back the hero art position/size tuner (bottom-left, dev only).
 const SHOW_HERO_ART_TUNER = false
+// Flip to true to bring back the mobile hero background image tuner (bottom-left, dev only).
+const SHOW_MOBILE_HERO_TUNER = false
 
 interface Props {
   go: (p: Page) => void
@@ -22,6 +25,7 @@ export default function Home({ go, goContactDesktop }: Props) {
   const [error, setError] = useState(false)
   const [form, setForm] = useState({ name: '', email: '', phone: '', notes: '' })
   const [heroArtValues, setHeroArtValues] = useState<HeroArtValues>(HERO_ART_DEFAULTS)
+  const [mobileHeroValues, setMobileHeroValues] = useState<MobileHeroValues>(MOBILE_HERO_DEFAULTS)
   const tapStart = useRef<{ x: number; y: number } | null>(null)
 
   const TAP_MOVE_THRESHOLD = 10 // px — beyond this, treat as a scroll/swipe, not a tap
@@ -74,10 +78,19 @@ export default function Home({ go, goContactDesktop }: Props) {
           document.body
         )}
 
+      {SHOW_MOBILE_HERO_TUNER &&
+        import.meta.env.DEV &&
+        createPortal(
+          <DevMobileHeroTuner values={mobileHeroValues} setValues={setMobileHeroValues} />,
+          document.body
+        )}
+
       {/* ── Mobile / tablet home (<1024px) ── */}
       <div className="home">
         {/* Hero */}
-        <section className="home-hero">
+        <section className="home-hero" style={mobileHeroCssVars(mobileHeroValues)}>
+          <img src="/Items_1.png" alt="" className="home-hero-bg" />
+          <div className="home-hero-fade" />
           <div className="home-hero-text fade-up" style={{ animationDelay: '0s' }}>
             <h1 className="home-hero-headline">
               <span className="hero-biggest">BIGGEST</span>
