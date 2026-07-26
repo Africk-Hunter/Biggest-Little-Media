@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import emailjs from '@emailjs/browser'
 import type { Page } from '../App'
@@ -22,6 +22,22 @@ export default function Home({ go, goContactDesktop }: Props) {
   const [error, setError] = useState(false)
   const [form, setForm] = useState({ name: '', email: '', phone: '', notes: '' })
   const [heroArtValues, setHeroArtValues] = useState<HeroArtValues>(HERO_ART_DEFAULTS)
+  const tapStart = useRef<{ x: number; y: number } | null>(null)
+
+  const TAP_MOVE_THRESHOLD = 10 // px — beyond this, treat as a scroll/swipe, not a tap
+
+  const handleCarouselPointerDown = (e: React.PointerEvent) => {
+    tapStart.current = { x: e.clientX, y: e.clientY }
+  }
+
+  const handleCarouselPointerUp = (e: React.PointerEvent) => {
+    const start = tapStart.current
+    tapStart.current = null
+    if (!start) return
+    const dx = Math.abs(e.clientX - start.x)
+    const dy = Math.abs(e.clientY - start.y)
+    if (dx < TAP_MOVE_THRESHOLD && dy < TAP_MOVE_THRESHOLD) go('portfolio')
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -83,7 +99,17 @@ export default function Home({ go, goContactDesktop }: Props) {
         </section>
 
         {/* TikTok carousel */}
-        <section className="home-carousel-section fade-up" style={{ animationDelay: '0.1s' }}>
+        <section
+          className="home-carousel-section fade-up"
+          style={{ animationDelay: '0.1s' }}
+          onPointerDown={handleCarouselPointerDown}
+          onPointerUp={handleCarouselPointerUp}
+          role="link"
+          tabIndex={0}
+          onKeyDown={e => {
+            if (e.key === 'Enter' || e.key === ' ') go('portfolio')
+          }}
+        >
           <p className="home-carousel-label">Featured Work</p>
           <Carousel variant="mobile" />
         </section>

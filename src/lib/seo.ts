@@ -2,7 +2,7 @@ import type { Page } from '../App'
 
 export const SITE_URL = 'https://biggestlittlemedia.com'
 export const SITE_NAME = 'Biggest Little Media'
-export const DEFAULT_OG_IMAGE = '/Couch_no_bg.png'
+export const DEFAULT_OG_IMAGE = '/og-logo.png'
 
 export interface PageSeo {
   path: string

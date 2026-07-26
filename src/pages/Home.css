@@ -52,6 +52,7 @@
 .home-carousel-section {
   padding: 48px 0;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .home-carousel-label {
