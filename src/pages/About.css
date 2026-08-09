@@ -153,10 +153,10 @@
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   overflow: hidden;
   background: var(--dsk-dark);
-  padding: 56px 40px 56px 140px;
+  padding: 56px 40px;
 }
 
 .dabt-portrait-grid {
