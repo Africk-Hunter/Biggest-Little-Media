@@ -61,6 +61,9 @@ export default function App() {
   // heading to 'contact' (the rightmost nav item) — this ref lets the
   // location-driven effect below override the direction just this once.
   const directionOverrideRef = useRef<Page | null>(null)
+  // Set synchronously (unlike prevPage state) so the contact-scroll effect
+  // below can't fire mid-transition within the same commit that starts one.
+  const transitioningRef = useRef(false)
 
   useEffect(() => () => window.clearTimeout(slideTimeout.current), [])
 
@@ -79,8 +82,12 @@ export default function App() {
     const dir = PAGE_ORDER.indexOf(directionKey) > PAGE_ORDER.indexOf(prev) ? 1 : -1
     setDirection(dir)
     setPrevPage(prev)
+    transitioningRef.current = true
     window.clearTimeout(slideTimeout.current)
-    slideTimeout.current = window.setTimeout(() => setPrevPage(null), SLIDE_DURATION)
+    slideTimeout.current = window.setTimeout(() => {
+      setPrevPage(null)
+      transitioningRef.current = false
+    }, SLIDE_DURATION)
   }, [page])
 
   const go = useCallback((p: Page) => {
@@ -101,7 +108,7 @@ export default function App() {
   }, [navigate, location.pathname])
 
   useEffect(() => {
-    if (page !== 'home' || !contactScrollPending || prevPage) return
+    if (page !== 'home' || !contactScrollPending || prevPage || transitioningRef.current) return
     const id = requestAnimationFrame(() => {
       document.getElementById('dsk-contact-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
       setContactScrollPending(false)
