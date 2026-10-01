@@ -11,7 +11,7 @@ const VALUES = [
   {
     num: '01',
     title: 'Strategy First',
-    body: "Every post, every campaign, every decision is rooted in data and intention. I don't believe in posting for the sake of posting. Your content should always have a purpose and move your brand forward.",
+    body: "Every post, every campaign, and every decision is rooted in data and intention. I don't believe in posting for the sake of posting. Your content should always have a purpose and move your brand forward.",
   },
   {
     num: '02',
@@ -53,7 +53,7 @@ export default function About({ go, goContactDesktop }: Props) {
 
           <div className="about-bio">
             <p>
-              Being the Biggest Little City means thinking big while staying true to our local roots
+              Being the Biggest Little City means thinking big while staying true to our local roots.
               As a small business, we focus on helping local businesses create an impact both
               digitally and physically! Our mission is to bridge the gap between local influence
               and digital trends. Being in a small city shouldn't limit any business to expand
