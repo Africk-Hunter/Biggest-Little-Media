@@ -89,7 +89,10 @@ export default function Home({ go, goContactDesktop }: Props) {
       <div className="home">
         {/* Hero */}
         <section className="home-hero" style={mobileHeroCssVars(mobileHeroValues)}>
-          <img src="/Items_1.png" alt="" className="home-hero-bg" />
+          <picture>
+            <source srcSet="/Items_1.webp" type="image/webp" />
+            <img src="/Items_1.png" alt="" className="home-hero-bg" fetchPriority="high" decoding="async" />
+          </picture>
           <div className="home-hero-fade" />
           <div className="home-hero-text fade-up" style={{ animationDelay: '0s' }}>
             <h1 className="home-hero-headline">
