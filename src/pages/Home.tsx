@@ -1,18 +1,10 @@
 import { useRef, useState } from 'react'
-import { createPortal } from 'react-dom'
 import emailjs from '@emailjs/browser'
 import type { Page } from '../App'
 import Carousel from '../components/Carousel'
-import DevHeroArtTuner, { HERO_ART_DEFAULTS, heroArtCssVars, type HeroArtValues } from '../components/DevHeroArtTuner'
-import DevMobileHeroTuner, { MOBILE_HERO_DEFAULTS, mobileHeroCssVars, type MobileHeroValues } from '../components/DevMobileHeroTuner'
 import { formatPhoneNumber } from '../utils/phone'
 import { autoResizeTextarea } from '../utils/autoResize'
 import './Home.css'
-
-// Flip to true to bring back the hero art position/size tuner (bottom-left, dev only).
-const SHOW_HERO_ART_TUNER = false
-// Flip to true to bring back the mobile hero background image tuner (bottom-left, dev only).
-const SHOW_MOBILE_HERO_TUNER = false
 
 interface Props {
   go: (p: Page) => void
@@ -24,8 +16,6 @@ export default function Home({ go, goContactDesktop }: Props) {
   const [sending, setSending] = useState(false)
   const [error, setError] = useState(false)
   const [form, setForm] = useState({ name: '', email: '', phone: '', notes: '' })
-  const [heroArtValues, setHeroArtValues] = useState<HeroArtValues>(HERO_ART_DEFAULTS)
-  const [mobileHeroValues, setMobileHeroValues] = useState<MobileHeroValues>(MOBILE_HERO_DEFAULTS)
   const tapStart = useRef<{ x: number; y: number } | null>(null)
 
   const TAP_MOVE_THRESHOLD = 10 // px — beyond this, treat as a scroll/swipe, not a tap
@@ -71,24 +61,10 @@ export default function Home({ go, goContactDesktop }: Props) {
 
   return (
     <>
-      {SHOW_HERO_ART_TUNER &&
-        import.meta.env.DEV &&
-        createPortal(
-          <DevHeroArtTuner values={heroArtValues} setValues={setHeroArtValues} />,
-          document.body
-        )}
-
-      {SHOW_MOBILE_HERO_TUNER &&
-        import.meta.env.DEV &&
-        createPortal(
-          <DevMobileHeroTuner values={mobileHeroValues} setValues={setMobileHeroValues} />,
-          document.body
-        )}
-
       {/* ── Mobile / tablet home (<1024px) ── */}
       <div className="home">
         {/* Hero */}
-        <section className="home-hero" style={mobileHeroCssVars(mobileHeroValues)}>
+        <section className="home-hero">
           <picture>
             <source srcSet="/Items_1.webp" type="image/webp" />
             <img src="/Items_1.png" alt="" className="home-hero-bg" fetchPriority="high" decoding="async" />
@@ -188,7 +164,7 @@ export default function Home({ go, goContactDesktop }: Props) {
       {/* ── Desktop home (>=1024px) ── */}
       <div className="dhome">
         {/* Hero */}
-        <section className="dhome-hero" style={heroArtCssVars(heroArtValues)}>
+        <section className="dhome-hero">
           <div className="dhome-hero-art dhome-anim" style={{ animationDelay: '0.2s' }}>
             <img src="/Couch_no_bg.png" alt="" className="dhome-hero-art-img" />
           </div>
