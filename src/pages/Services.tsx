@@ -257,25 +257,35 @@ export default function Services({ go, goContactDesktop }: Props) {
   const callRef = useRef<HTMLElement>(null)
   const endRef = useRef<HTMLDivElement>(null)
 
-  // Scroll-spy: highlight the chapter currently in view. Watches both the
-  // mobile (svc-) and desktop (dsvc-) sections; the hidden layout never intersects.
+  // Scroll-spy: highlight the last chapter whose top has passed 30% of the
+  // viewport (the first one when above them all). Covers both the mobile (svc-)
+  // and desktop (dsvc-) layouts; the hidden one has no offsetParent and is skipped.
   useEffect(() => {
-    const sections = SERVICE_CATEGORIES.flatMap(c => [
-      document.getElementById(`svc-${c.key}`),
-      document.getElementById(`dsvc-${c.key}`),
-    ]).filter((el): el is HTMLElement => !!el)
-    if (!('IntersectionObserver' in window) || sections.length === 0) return
-    const observer = new IntersectionObserver(
-      entries => {
-        const visible = entries.filter(e => e.isIntersecting)
-        if (visible.length > 0) {
-          setActiveKey(visible[0].target.id.replace(/^d?svc-/, ''))
-        }
-      },
-      { rootMargin: '-25% 0px -60% 0px' },
-    )
-    sections.forEach(s => observer.observe(s))
-    return () => observer.disconnect()
+    let raf = 0
+    const update = () => {
+      raf = 0
+      const line = window.innerHeight * 0.3
+      let key = SERVICE_CATEGORIES[0].key
+      for (const c of SERVICE_CATEGORIES) {
+        const el =
+          [document.getElementById(`svc-${c.key}`), document.getElementById(`dsvc-${c.key}`)].find(
+            e => e && e.offsetParent !== null,
+          ) ?? null
+        if (el && el.getBoundingClientRect().top <= line) key = c.key
+      }
+      setActiveKey(key)
+    }
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update)
+    }
+    update()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
   }, [])
 
   // Mobile booking bar: shown once the Discovery Call card has scrolled away,
@@ -324,7 +334,7 @@ export default function Services({ go, goContactDesktop }: Props) {
             {DISCOVERY_CALL.name}
           </h2>
           <p className="svc-call-desc">{DISCOVERY_CALL.desc}</p>
-          <button className="svc-call-btn" onClick={() => go('contact')}>
+          <button className="svc-call-btn" data-sr-off onClick={() => go('contact')}>
             Book your free call <span aria-hidden="true">→</span>
           </button>
         </section>

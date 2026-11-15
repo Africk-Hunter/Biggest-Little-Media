@@ -119,6 +119,7 @@ export default function App() {
   }, [page])
 
   useScrollReveal('.page-slide-in', page)
+  useScrollReveal('.footer, .dfooter', page)
 
   const toggleMenu = useCallback(() => setMenuOpen(o => !o), [])
 

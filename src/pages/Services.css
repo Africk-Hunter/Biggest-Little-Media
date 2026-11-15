@@ -109,6 +109,13 @@
   border-radius: 100px;
   cursor: pointer;
   transition: gap 0.2s ease, opacity 0.15s ease;
+  /* Invisible from the first paint, then rises in (the scroll-reveal hook only
+     hides elements a frame after mount, which made the button flash first). */
+  animation: fadeUp 0.7s cubic-bezier(.22, .68, 0, 1) 0.25s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .svc-call-btn { animation: none; }
 }
 
 /* ── Sticky category chips ── */
@@ -120,6 +127,12 @@
   padding: 10px 24px;
   background: var(--bg-dark);
   border-bottom: 1px solid var(--bg-card);
+  /* Sticky, so it opts out of scroll-reveal and fades in on load instead. */
+  animation: fadeUp 0.7s cubic-bezier(.22, .68, 0, 1) 0.35s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .svc-jump { animation: none; }
 }
 
 .svc-jump ul {
@@ -248,6 +261,11 @@
   background: var(--bg-cream);
   border-radius: 14px;
   padding: 22px 20px;
+}
+
+/* The toggle carries its own 48px tap height, so trim the card's bottom padding */
+.svc-card:has(> .svc-includes) {
+  padding-bottom: 8px;
 }
 
 .svc-card--dark {
@@ -409,7 +427,7 @@
 
 .svc-includes .svc-checks {
   margin-top: 4px;
-  padding: 0 0 4px;
+  padding: 0 0 14px;
   border-top: none;
 }
 
@@ -634,6 +652,7 @@
 
   .svc-cards:not(.svc-cards--steps) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
   }
 
   .svc-cards--steps {
