@@ -33,9 +33,9 @@ export const PAGE_SEO: Record<Page, PageSeo> = {
   },
   services: {
     path: '/services',
-    title: 'Services & Pricing | Biggest Little Media',
+    title: 'Services | Biggest Little Media',
     description:
-      'Social media management, marketing strategy, brand consulting, content creation, and website audits for Reno, NV small businesses. View packages & pricing.',
+      'Social media management, marketing strategy, brand consulting, content creation, and website audits for Reno, NV small businesses.',
   },
   contact: {
     path: '/contact',

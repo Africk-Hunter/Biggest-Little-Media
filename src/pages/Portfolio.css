@@ -151,6 +151,9 @@
 /* ── Desktop portfolio (>=1024px) ── */
 .dport {
   display: none;
+  background:
+    radial-gradient(ellipse 70% 40% at 50% 0%, rgba(200, 184, 154, 0.11), transparent 70%),
+    linear-gradient(180deg, #1e1b16 0%, #0d0b09 60%);
 }
 
 .dport-anim {
@@ -158,7 +161,7 @@
 }
 
 .dport-header {
-  padding: 140px 52px 0;
+  padding: 140px 52px 48px;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;

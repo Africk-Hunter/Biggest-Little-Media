@@ -147,6 +147,9 @@
   grid-template-columns: 1fr 1fr;
   height: 100vh;
   overflow: hidden;
+  background:
+    radial-gradient(ellipse 70% 60% at 90% 85%, rgba(200, 184, 154, 0.11), transparent 70%),
+    linear-gradient(45deg, #0d0b09 0%, #1e1b16 100%);
 }
 
 .dabt-portrait-wrap {
@@ -155,7 +158,6 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: var(--dsk-dark);
   padding: 56px 40px;
 }
 

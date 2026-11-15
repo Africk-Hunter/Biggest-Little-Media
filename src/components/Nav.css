@@ -266,3 +266,46 @@
     font-size: 18px;
   }
 }
+
+/* ── Entrance: nav items drop in one at a time ──
+   `backwards` fill only: after finishing, elements return to their normal
+   styles so hover/active states aren't overridden. */
+@keyframes navDrop {
+  from { opacity: 0; transform: translateY(-14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes navMenuItemIn {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.dnav-brand,
+.dnav-links > *,
+.nav-logo,
+.nav-links-desktop > *,
+.nav-hamburger {
+  animation: navDrop 0.6s cubic-bezier(.22, .68, 0, 1) backwards;
+}
+
+.dnav-brand, .nav-logo { animation-delay: 0.05s; }
+.dnav-links > :nth-child(1), .nav-links-desktop > :nth-child(1) { animation-delay: 0.2s; }
+.dnav-links > :nth-child(2), .nav-links-desktop > :nth-child(2) { animation-delay: 0.3s; }
+.dnav-links > :nth-child(3), .nav-links-desktop > :nth-child(3) { animation-delay: 0.4s; }
+.dnav-links > :nth-child(4), .nav-links-desktop > :nth-child(4) { animation-delay: 0.5s; }
+.dnav-links > :nth-child(5), .nav-links-desktop > :nth-child(5) { animation-delay: 0.6s; }
+.nav-hamburger { animation-delay: 0.2s; }
+
+.nav-mobile-links > * {
+  animation: navMenuItemIn 0.45s cubic-bezier(.22, .68, 0, 1) backwards;
+}
+.nav-mobile-links > :nth-child(1) { animation-delay: 0.05s; }
+.nav-mobile-links > :nth-child(2) { animation-delay: 0.12s; }
+.nav-mobile-links > :nth-child(3) { animation-delay: 0.19s; }
+.nav-mobile-links > :nth-child(4) { animation-delay: 0.26s; }
+.nav-mobile-links > :nth-child(5) { animation-delay: 0.33s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .dnav-brand, .dnav-links > *, .nav-logo, .nav-links-desktop > *,
+  .nav-hamburger, .nav-mobile-links > * { animation: none; }
+}

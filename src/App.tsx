@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
 import Seo from './components/Seo'
+import { useScrollReveal } from './hooks/useScrollReveal'
 import Home from './pages/Home'
 import Services from './pages/Services'
 import Portfolio from './pages/Portfolio'
@@ -13,7 +14,7 @@ import './App.css'
 export type Page = 'home' | 'services' | 'portfolio' | 'about' | 'contact'
 
 const PAGE_ORDER: Page[] = ['home', 'about', 'portfolio', 'services', 'contact']
-const SLIDE_DURATION = 420
+const SLIDE_DURATION = 260 // outgoing fade is 240ms (App.css) plus a small buffer
 
 export const PATH_TO_PAGE: Record<string, Page> = {
   '/': 'home',
@@ -53,7 +54,6 @@ export default function App() {
   const [prevPage, setPrevPage] = useState<Page | null>(null)
   const [direction, setDirection] = useState<1 | -1>(1)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [contactScrollPending, setContactScrollPending] = useState(false)
   const mainRef = useRef<HTMLDivElement>(null)
   const slideTimeout = useRef<number | undefined>(undefined)
   const prevPageRef = useRef<Page>(page)
@@ -61,9 +61,9 @@ export default function App() {
   // heading to 'contact' (the rightmost nav item) — this ref lets the
   // location-driven effect below override the direction just this once.
   const directionOverrideRef = useRef<Page | null>(null)
-  // Set synchronously (unlike prevPage state) so the contact-scroll effect
-  // below can't fire mid-transition within the same commit that starts one.
-  const transitioningRef = useRef(false)
+  // Set when "Contact" is clicked from another page: home should open already
+  // scrolled to its contact section instead of scrolling there afterwards.
+  const contactJumpRef = useRef(false)
 
   useEffect(() => () => window.clearTimeout(slideTimeout.current), [])
 
@@ -82,39 +82,43 @@ export default function App() {
     const dir = PAGE_ORDER.indexOf(directionKey) > PAGE_ORDER.indexOf(prev) ? 1 : -1
     setDirection(dir)
     setPrevPage(prev)
-    transitioningRef.current = true
     window.clearTimeout(slideTimeout.current)
-    slideTimeout.current = window.setTimeout(() => {
-      setPrevPage(null)
-      transitioningRef.current = false
-    }, SLIDE_DURATION)
+    slideTimeout.current = window.setTimeout(() => setPrevPage(null), SLIDE_DURATION)
   }, [page])
 
+  // `html` has scroll-behavior: smooth, so page-switch scrolls must say
+  // 'instant' or the new page appears at the old position and glides up.
   const go = useCallback((p: Page) => {
     navigate(PAGE_TO_PATH[p])
     setMenuOpen(false)
     requestAnimationFrame(() => {
       if (mainRef.current) mainRef.current.scrollTop = 0
-      window.scrollTo(0, 0)
+      window.scrollTo({ top: 0, behavior: 'instant' })
     })
   }, [navigate])
 
   // Desktop layout embeds the contact form on the home page instead of
-  // routing to a dedicated page, so its "Contact" affordance scrolls there.
+  // routing to a dedicated page, so its "Contact" affordance goes there.
   const goContactDesktop = useCallback(() => {
-    directionOverrideRef.current = 'contact'
-    if (location.pathname !== '/') navigate('/')
-    setContactScrollPending(true)
-  }, [navigate, location.pathname])
-
-  useEffect(() => {
-    if (page !== 'home' || !contactScrollPending || prevPage || transitioningRef.current) return
-    const id = requestAnimationFrame(() => {
+    setMenuOpen(false)
+    if (page === 'home') {
       document.getElementById('dsk-contact-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      setContactScrollPending(false)
-    })
-    return () => cancelAnimationFrame(id)
-  }, [page, contactScrollPending, prevPage])
+      return
+    }
+    directionOverrideRef.current = 'contact'
+    contactJumpRef.current = true
+    navigate('/')
+  }, [navigate, page])
+
+  // Runs before paint, and before useScrollReveal decides what's in view, so
+  // home opens on the contact section and that section is what animates in.
+  useLayoutEffect(() => {
+    if (page !== 'home' || !contactJumpRef.current) return
+    contactJumpRef.current = false
+    document.getElementById('dsk-contact-section')?.scrollIntoView({ behavior: 'instant', block: 'start' })
+  }, [page])
+
+  useScrollReveal('.page-slide-in', page)
 
   const toggleMenu = useCallback(() => setMenuOpen(o => !o), [])
 

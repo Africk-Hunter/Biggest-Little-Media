@@ -165,11 +165,13 @@ export default function Home({ go, goContactDesktop }: Props) {
       <div className="dhome">
         {/* Hero */}
         <section className="dhome-hero">
-          <div className="dhome-hero-art dhome-anim" style={{ animationDelay: '0.2s' }}>
+          <div className="dhome-hero-art sr-skip" style={{ animationDelay: '0.1s' }}>
             <img src="/Couch_no_bg.png" alt="" className="dhome-hero-art-img" />
           </div>
           <h1 className="dhome-headline dhome-anim" style={{ animationDelay: '0s' }}>
-            Biggest <span className="dhome-script">little</span> Media
+            <span className="dhome-word dhome-biggest">Biggest</span>{' '}
+            <span className="dhome-word dhome-script dhome-little">little</span>{' '}
+            <span className="dhome-word dhome-media">Media</span>
           </h1>
           <div className="dhome-hero-body">
             <p className="dhome-tagline dhome-anim" style={{ animationDelay: '0.14s' }}>

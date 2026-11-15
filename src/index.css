@@ -120,3 +120,37 @@ button {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
+
+/* ── Scroll reveal (see hooks/useScrollReveal.ts) ── */
+.sr {
+  opacity: 0;
+  transform: translateY(22px);
+}
+
+.sr.sr-in {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.7s cubic-bezier(.22, .68, 0, 1), transform 0.7s cubic-bezier(.22, .68, 0, 1);
+  transition-delay: var(--sr-delay, 0ms);
+}
+
+/* Per-section load animations are replaced by the per-element reveal. */
+.page-slide-in .fade-up,
+.page-slide-in .dhome-anim,
+.page-slide-in .dabt-anim,
+.page-slide-in .dport-anim,
+.page-slide-in .dprefooter-anim,
+.page-slide-in .dsvc-hero-text,
+.page-slide-in .dsvc-body {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sr { opacity: 1; transform: none; }
+}
+
+/* Page-transition reveals: slide in from the direction of travel. */
+.sr.sr-from-left { transform: translateX(-90px); }
+.sr.sr-from-right { transform: translateX(90px); }
+.sr.sr-in.sr-from-left,
+.sr.sr-in.sr-from-right { transform: none; }

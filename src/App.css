@@ -13,6 +13,9 @@
   padding-top: 64px; /* nav height */
 }
 
+/* The outgoing page is never shown (on any screen size): it stays mounted
+   only briefly so useScrollReveal can tell a page switch happened and slide
+   the new page's elements in from the direction of travel. */
 .page-slide-out {
   display: none;
 }
@@ -47,7 +50,7 @@
     background: var(--dsk-dark);
     color: var(--dsk-text-primary);
     font-family: var(--dsk-font-body);
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   .main-content {
@@ -57,7 +60,7 @@
   .page-slide-track {
     display: grid;
     position: relative;
-    overflow: hidden;
+    overflow: clip;
   }
 
   .page-slide-panel {
@@ -65,29 +68,12 @@
     min-width: 0;
   }
 
-  .page-slide-out {
-    display: block;
-    animation: dsk-slide-out 420ms ease forwards;
-  }
-
+  /* The incoming page no longer moves as one block; its elements slide in
+     one by one instead (see useScrollReveal). */
   .page-slide-in {
-    animation: dsk-slide-in 420ms ease forwards;
+    animation: none;
   }
 
-  .page-slide-out.to-left { --dsk-slide-exit: -100%; }
-  .page-slide-out.to-right { --dsk-slide-exit: 100%; }
-  .page-slide-in.from-right { --dsk-slide-enter: 100%; }
-  .page-slide-in.from-left { --dsk-slide-enter: -100%; }
-
-  @keyframes dsk-slide-out {
-    from { transform: translateX(0); }
-    to { transform: translateX(var(--dsk-slide-exit)); }
-  }
-
-  @keyframes dsk-slide-in {
-    from { transform: translateX(var(--dsk-slide-enter)); }
-    to { transform: translateX(0); }
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
