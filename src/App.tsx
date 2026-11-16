@@ -119,7 +119,9 @@ export default function App() {
   }, [page])
 
   useScrollReveal('.page-slide-in', page)
-  useScrollReveal('.footer, .dfooter', page)
+  // The footer sits at the very bottom of the page, so it must not use the
+  // bottom inset: its text would never scroll far enough to count as visible.
+  useScrollReveal('.footer, .dfooter', page, '0px')
 
   const toggleMenu = useCallback(() => setMenuOpen(o => !o), [])
 

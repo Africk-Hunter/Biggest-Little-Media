@@ -53,7 +53,7 @@ function collectTargets(root: Element): { units: HTMLElement[]; boxes: HTMLEleme
 
 // Fades each leaf element of the current page in one at a time as it scrolls
 // into view. Elements revealed in the same observer batch are staggered.
-export function useScrollReveal(rootSelector: string, key: string) {
+export function useScrollReveal(rootSelector: string, key: string, bottomInset = '-6%') {
   // Layout effect: elements must be hidden before the first paint, otherwise
   // everything already in view flashes visible and then pops out and back in.
   useLayoutEffect(() => {
@@ -100,7 +100,7 @@ export function useScrollReveal(rootSelector: string, key: string) {
         timers.add(t)
       })
     }
-    const rootMargin = '0px 0px -6% 0px'
+    const rootMargin = `0px 0px ${bottomInset} 0px`
     const observer = new IntersectionObserver(e => reveal(e, observer), { threshold: 0.12, rootMargin })
     // Painted wrappers can be much taller than what's on screen, so they
     // reveal as soon as any part is in view.
